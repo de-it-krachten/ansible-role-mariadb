@@ -1,0 +1,13 @@
+---
+
+- name: Install package prerequisites
+  yum:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ mariadb_package_prerequisites }}"
+
+- name: Install core packages
+  yum:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ mariadb_packages }}"

@@ -1,0 +1,4 @@
+[mysqld]
+{% for item in innodb|dict2items %}
+{{ item.key }}={{ item.value }}
+{% endfor %}

@@ -1,0 +1,6 @@
+---
+
+mariadb_release: 10.4
+mariadb_pre_packages: []
+mariadb_packages: []
+mariadb_additional_packages: []

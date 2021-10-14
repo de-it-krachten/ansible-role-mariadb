@@ -1,0 +1,57 @@
+---
+
+- name: start service mariadb
+  service:
+    name: mariadb
+    enabled: yes
+    state: started
+
+- name: Set a priv for user root on localhost
+  mysql_user:
+    name: 'root'
+    state: present
+    login_unix_socket: "{{ mariadb_socket }}"
+    check_implicit_admin: true
+    priv: '*.*:ALL,GRANT'
+  notify:
+    - Restart MariaDB
+
+- name: remove remote root
+  mysql_user:
+    user: root
+    state: absent
+    check_implicit_admin: true
+    login_unix_socket: "{{ mariadb_socket }}"
+    host: "{{ ansible_fqdn }}"
+
+- name: ensure anonymous users are not in the database
+  mysql_user:
+    name: ''
+    host: "{{ item }}"
+    state: absent
+    login_unix_socket: "{{ mariadb_socket }}"
+  loop:
+    - localhost
+    - "{{ inventory_hostname }}"
+
+- name: remove the test database
+  mysql_db:
+    name: test
+    state: absent
+    login_unix_socket: "{{ mariadb_socket }}"
+
+- name: Create custom config path
+  file:
+    path: "{{ mariadb_config_dir }}"
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: Configure innodb
+  template:
+    src: innodb.cnf.j2
+    dest: "{{ mariadb_config_dir }}/innodb.cnf"
+    mode: '0644'
+  notify:
+    - Restart MariaDB

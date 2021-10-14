@@ -1,0 +1,21 @@
+---
+
+- name: create database
+  mysql_db:
+    name: "{{ mariadb_db_name }}"
+    state: present 
+    login_unix_socket: "{{ mariadb_socket }}"
+
+- name: create db user 
+  mysql_user:
+    name: "{{ mariadb_db_user }}"
+    host: "{{ item }}"
+    state: present 
+    login_unix_socket: "{{ mariadb_socket }}"
+    priv: "{{ mariadb_db_name }}.*:ALL,GRANT"
+  loop:
+    - localhost
+#    - "{{ inventory_hostname }}"
+#    - "{{ ansible_hostname }}"
+#    - 127.0.0.1
+#    - ::1

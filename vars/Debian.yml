@@ -1,0 +1,14 @@
+---
+
+mariadb_pre_packages:
+  - apt-transport-https
+  - software-properties-common
+  - python3-pymysql
+  - rsync
+mariadb_packages:
+  - mariadb-server
+  - mariadb-client
+  - mariadb-backup
+
+mariadb_config_dir: /etc/mysql/conf.d
+mariadb_socket: /var/run/mysqld/mysqld.sock
