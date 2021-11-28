@@ -26,6 +26,11 @@
 - name: Setup-repository Debian
   block:
 
+    - name: Install GPG
+      apt:
+        name: gnupg
+        state: present
+
     - name: Import APT key from official MariaDB repository (Debian)
       apt_key:
         url: https://mariadb.org/mariadb_release_signing_key.asc

@@ -1,0 +1,24 @@
+---
+- name: Converge
+  hosts: all
+  vars:
+    mariadb_version: 10.4
+    mariadb_root_password: 'Abcd1234'
+    innodb:
+      innodb_buffer_pool_size: 4096M
+      innodb_log_file_size: 64M
+      innodb_lock_wait_timeout: 900
+    mariadb_db_name: testdb
+    mariadb_db_user: testuser
+  tasks:
+
+    - name: Update APT cache
+      apt:
+        update_cache: yes
+        cache_valid_time: 1
+      become: yes
+      when: ansible_os_family == 'Debian'
+
+    - name: "Include ansible-role-mariadb"
+      include_role:
+        name: "ansible-role-mariadb"
