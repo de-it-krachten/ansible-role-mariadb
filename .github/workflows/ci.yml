@@ -6,7 +6,7 @@ on:
   pull_request:
   push:
   schedule:
-    #- cron: "13 1 * * 1"
+    #- cron: "23 7 * * 1"
     - cron: "30 04 * * 1"
 
 defaults:
@@ -52,10 +52,6 @@ jobs:
           - distro: ubuntu1804
             playbook: converge.yml
           - distro: ubuntu2004
-            playbook: converge.yml
-          - distro: debian10
-            playbook: converge.yml
-          - distro: debian11
             playbook: converge.yml
 
     steps:
