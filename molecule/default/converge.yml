@@ -1,8 +1,9 @@
 ---
+
 - name: Converge
   hosts: all
+  vars: null
   tasks:
-
-    - name: "Include role 'ansible-role-mariadb'"
+    - name: Include role 'ansible-role-mariadb'
       include_role:
-        name: "ansible-role-mariadb"
+        name: ansible-role-mariadb

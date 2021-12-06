@@ -1,4 +1,4 @@
 [mysqld]
-{% for item in innodb|dict2items %}
+{% for item in mariadb_innodb|dict2items %}
 {{ item.key }}={{ item.value }}
 {% endfor %}

@@ -1,10 +1,57 @@
 ---
 
-- name: start service mariadb
-  service:
-    name: mariadb
-    enabled: yes
-    state: started
+- name: Show CPU/memory
+  debug:
+    msg:
+      - "ansible_processor_vcpus: {{ ansible_processor_vcpus }}"
+      - "ansible_memtotal_mb: {{ ansible_memtotal_mb }}"
+
+- name: Define mariadb_innodb
+  set_fact:
+    mariadb_innodb: "{{ innodb }}"
+  when: mariadb_innodb is undefined and innodb is defined
+
+- name: Configure innodb
+  template:
+    src: innodb.cnf.j2
+    dest: "{{ mariadb_config_dir }}/innodb.cnf"
+    mode: '0644'
+  when: mariadb_innodb is defined
+  notify:
+    - Restart MariaDB
+
+
+#- name: start service mariadb
+#  service:
+#    name: mariadb
+#    enabled: yes
+#    state: started
+
+
+- name: start service mariadb  # noqa no-changed-when
+  shell: |
+    systemctl status -l mariadb
+    mkdir /etc/systemd/system/mariadb.service.d
+    echo -e "[Service]\nTimeoutStartSec=120" > /etc/systemd/system/mariadb.service.d/startup-timeout.conf
+    systemctl daemon-reload
+    date
+    systemctl start mariadb
+    date
+    systemctl status -l mariadb
+  ignore_errors: yes
+  register: _service
+
+- name: Show
+  debug:
+    var: _service
+
+- name: Show service  # noqa no-changed-when
+  command: systemctl status -l mariadb
+  register: _service
+
+- name: Show
+  debug:
+    var: _service
 
 - name: Set a priv for user root on localhost
   mysql_user:
@@ -48,10 +95,16 @@
     group: root
     mode: '0755'
 
+- name: Define mariadb_innodb
+  set_fact:
+    mariadb_innodb: "{{ innodb }}"
+  when: mariadb_innodb is undefined and innodb is defined
+
 - name: Configure innodb
   template:
     src: innodb.cnf.j2
     dest: "{{ mariadb_config_dir }}/innodb.cnf"
     mode: '0644'
+  when: mariadb_innodb is defined
   notify:
     - Restart MariaDB
