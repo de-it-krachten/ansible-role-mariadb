@@ -4,7 +4,7 @@
 role: ansible-role-mariadb
 role_short: mariadb
 role_description: |
-  WRITE HERE
+  Installs & configures MariaDB
 
 # Supported platform
 platforms:
