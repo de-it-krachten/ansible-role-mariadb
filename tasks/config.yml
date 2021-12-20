@@ -20,38 +20,11 @@
   notify:
     - Restart MariaDB
 
-
-#- name: start service mariadb
-#  service:
-#    name: mariadb
-#    enabled: yes
-#    state: started
-
-
-- name: start service mariadb  # noqa no-changed-when
-  shell: |
-    systemctl status -l mariadb
-    mkdir /etc/systemd/system/mariadb.service.d
-    echo -e "[Service]\nTimeoutStartSec=120" > /etc/systemd/system/mariadb.service.d/startup-timeout.conf
-    systemctl daemon-reload
-    date
-    systemctl start mariadb
-    date
-    systemctl status -l mariadb
-  ignore_errors: yes
-  register: _service
-
-- name: Show
-  debug:
-    var: _service
-
-- name: Show service  # noqa no-changed-when
-  command: systemctl status -l mariadb
-  register: _service
-
-- name: Show
-  debug:
-    var: _service
+- name: start service mariadb
+  service:
+    name: mariadb
+    enabled: yes
+    state: started
 
 - name: Set a priv for user root on localhost
   mysql_user:

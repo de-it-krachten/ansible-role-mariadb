@@ -4,20 +4,20 @@
 role: ansible-role-mariadb
 role_short: mariadb
 role_description: |
-  Installs & configures MariaDB
+  Installs & configures MariaDB 10.x using packages from mariadb.com
 
 # Supported platform
 platforms:
-  - name: CentOS 7
-    image: centos7
+#  - name: CentOS 7
+#    image: centos7
   - name: CentOS 8
     image: centos8
-  - name: Debian 10 (Buster)
-    image: debian10
-  - name: Debian 11 (Bullseye)
-    image: debian11
-  - name: Ubuntu 18.04 LTS
-    image: ubuntu1804
+#  - name: Debian 10 (Buster)
+#    image: debian10
+#  - name: Debian 11 (Bullseye)
+#    image: debian11
+#  - name: Ubuntu 18.04 LTS
+#    image: ubuntu1804
   - name: Ubuntu 20.04 LTS
     image: ubuntu2014
 
@@ -33,15 +33,15 @@ galaxy:
   platforms:
     - name: EL
       versions:
-        - 7
+#        - 7
         - 8
-    - name: Debian
-      versions:
-        - buster
-        - bullseye
+#    - name: Debian
+#      versions:
+#        - buster
+#        - bullseye
     - name: Ubuntu
       versions:
-        - 18.04
+#        - 18.04
         - 20.04
 
 # Github
@@ -59,15 +59,17 @@ gitlab:
 molecule:
   active: true
   platforms:
-    - centos7
+#    - centos7
     - centos8
-    - debian10
-    - debian11
-    - ubuntu1804
+#    - debian10
+#    - debian11
+#    - ubuntu1804
     - ubuntu2004
   converge:
     playbooks: []
-    vars: {}
+    vars:
+      mariadb_db_name: db01
+      mariadb_db_user: user01
 
 # templates
 ci_templates:

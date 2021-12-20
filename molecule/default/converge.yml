@@ -2,7 +2,9 @@
 
 - name: Converge
   hosts: all
-  vars: null
+  vars:
+    mariadb_db_name: db01
+    mariadb_db_user: user01
   tasks:
     - name: Include role 'ansible-role-mariadb'
       include_role:

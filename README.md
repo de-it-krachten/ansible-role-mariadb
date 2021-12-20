@@ -3,7 +3,7 @@
 
 # ansible-role-mariadb
 
-Installs & configures MariaDB
+Installs & configures MariaDB 10.x using packages from mariadb.com
 
 
 Platforms
@@ -11,11 +11,7 @@ Platforms
 
 Supported platforms
 
-- CentOS 7
 - CentOS 8
-- Debian 10 (Buster)
-- Debian 11 (Bullseye)
-- Ubuntu 18.04 LTS
 - Ubuntu 20.04 LTS
 
 
@@ -45,7 +41,9 @@ Example Playbook
 <pre><code>
 - name: Converge
   hosts: all
-  vars: null
+  vars:
+    mariadb_db_name: db01
+    mariadb_db_user: user01
   tasks:
     - name: Include role 'ansible-role-mariadb'
       include_role:
