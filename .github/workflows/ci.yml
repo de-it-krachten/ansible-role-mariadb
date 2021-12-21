@@ -44,10 +44,10 @@ jobs:
 
   molecule-centos8:
     name: Molecule-centos8
+    needs: lint
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
-      needs: lint
 
     steps:
       - name: Check out the codebase.
@@ -78,10 +78,10 @@ jobs:
 
   molecule-ubuntu2004:
     name: Molecule-ubuntu2004
+    needs: molecule-centos8
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
-      needs: molecule-centos8
 
     steps:
       - name: Check out the codebase.
