@@ -1,5 +1,25 @@
 ---
 
+- name: Show CPU/memory
+  debug:
+    msg:
+      - "ansible_processor_vcpus: {{ ansible_processor_vcpus }}"
+      - "ansible_memtotal_mb: {{ ansible_memtotal_mb }}"
+
+- name: Define mariadb_innodb
+  set_fact:
+    mariadb_innodb: "{{ innodb }}"
+  when: mariadb_innodb is undefined and innodb is defined
+
+- name: Configure innodb
+  template:
+    src: innodb.cnf.j2
+    dest: "{{ mariadb_config_dir }}/innodb.cnf"
+    mode: '0644'
+  when: mariadb_innodb is defined
+  notify:
+    - Restart MariaDB
+
 - name: start service mariadb
   service:
     name: mariadb
@@ -48,10 +68,16 @@
     group: root
     mode: '0755'
 
+- name: Define mariadb_innodb
+  set_fact:
+    mariadb_innodb: "{{ innodb }}"
+  when: mariadb_innodb is undefined and innodb is defined
+
 - name: Configure innodb
   template:
     src: innodb.cnf.j2
     dest: "{{ mariadb_config_dir }}/innodb.cnf"
     mode: '0644'
+  when: mariadb_innodb is defined
   notify:
     - Restart MariaDB
