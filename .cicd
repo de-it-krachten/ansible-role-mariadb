@@ -48,6 +48,7 @@ galaxy:
 github:
   active: true
   self_hosted: false
+  fail_fast: false
   owner: de-it-krachten
   repo: ansible-role-mariadb
 
@@ -65,6 +66,9 @@ molecule:
 #    - debian11
 #    - ubuntu1804
     - ubuntu2004
+  prepare:
+    playbooks: []
+    vars: {}
   converge:
     playbooks: []
     vars:
