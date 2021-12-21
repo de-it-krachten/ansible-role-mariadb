@@ -47,6 +47,7 @@ galaxy:
 # Github
 github:
   active: true
+  parallel: false
   self_hosted: false
   fail_fast: false
   owner: de-it-krachten
