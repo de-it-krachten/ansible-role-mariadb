@@ -68,6 +68,12 @@ jobs:
       - name: Install test dependencies.
         run: pip3 install ansible ansible-lint molecule[docker] docker yamllint jmespath
 
+      - name: disable apparmor for mysql
+        run: sudo ln -s /etc/apparmor.d/usr.sbin.mysqld /etc/apparmor.d/disable/
+
+      - name: parse apparmor for mysql
+        run: sudo apparmor_parser -R /etc/apparmor.d/usr.sbin.mysqld
+
       - name: Run Molecule tests.
         run: molecule test
         env:
@@ -101,6 +107,12 @@ jobs:
 
       - name: Install test dependencies.
         run: pip3 install ansible ansible-lint molecule[docker] docker yamllint jmespath
+
+      - name: disable apparmor for mysql
+        run: sudo ln -s /etc/apparmor.d/usr.sbin.mysqld /etc/apparmor.d/disable/
+
+      - name: parse apparmor for mysql
+        run: sudo apparmor_parser -R /etc/apparmor.d/usr.sbin.mysqld
 
       - name: Run Molecule tests.
         run: molecule test
