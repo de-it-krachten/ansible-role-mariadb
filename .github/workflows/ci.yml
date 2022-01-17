@@ -33,6 +33,12 @@ jobs:
           hostname -f
           lsb_release -a
 
+      - name: disable apparmor for mysql
+        run: sudo ln -s /etc/apparmor.d/usr.sbin.mysqld /etc/apparmor.d/disable/
+
+      - name: parse apparmor for mysql
+        run: sudo apparmor_parser -R /etc/apparmor.d/usr.sbin.mysqld
+
       - name: Install test dependencies.
         run: pip3 install ansible ansible-lint yamllint jmespath
 
@@ -42,8 +48,8 @@ jobs:
           yamllint .
           ansible-lint
 
-  molecule-centos8:
-    name: Molecule-centos8
+  molecule-rockylinux8:
+    name: Molecule-rockylinux8
     needs: lint
     runs-on: ubuntu-latest
     strategy:
@@ -65,26 +71,30 @@ jobs:
           hostname -f
           lsb_release -a
 
-      - name: Install test dependencies.
-        run: pip3 install ansible ansible-lint molecule[docker] docker yamllint jmespath
-
       - name: disable apparmor for mysql
         run: sudo ln -s /etc/apparmor.d/usr.sbin.mysqld /etc/apparmor.d/disable/
 
       - name: parse apparmor for mysql
         run: sudo apparmor_parser -R /etc/apparmor.d/usr.sbin.mysqld
 
+      - name: Install test dependencies.
+        run: pip3 install ansible ansible-lint molecule[docker] docker yamllint jmespath
+
+      - name: Set-up github runner
+        run: |
+          sudo modprobe ip6table_filter
+
       - name: Run Molecule tests.
         run: molecule test
         env:
           PY_COLORS: '1'
           ANSIBLE_FORCE_COLOR: '1'
-          MOLECULE_DISTRO: centos8
+          MOLECULE_DISTRO: rockylinux8
           MOLECULE_PLAYBOOK: converge.yml
 
   molecule-ubuntu2004:
     name: Molecule-ubuntu2004
-    needs: molecule-centos8
+    needs: molecule-rockylinux8
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -105,14 +115,18 @@ jobs:
           hostname -f
           lsb_release -a
 
-      - name: Install test dependencies.
-        run: pip3 install ansible ansible-lint molecule[docker] docker yamllint jmespath
-
       - name: disable apparmor for mysql
         run: sudo ln -s /etc/apparmor.d/usr.sbin.mysqld /etc/apparmor.d/disable/
 
       - name: parse apparmor for mysql
         run: sudo apparmor_parser -R /etc/apparmor.d/usr.sbin.mysqld
+
+      - name: Install test dependencies.
+        run: pip3 install ansible ansible-lint molecule[docker] docker yamllint jmespath
+
+      - name: Set-up github runner
+        run: |
+          sudo modprobe ip6table_filter
 
       - name: Run Molecule tests.
         run: molecule test
