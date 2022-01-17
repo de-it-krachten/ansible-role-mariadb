@@ -11,7 +11,10 @@ Platforms
 
 Supported platforms
 
+- RHEL 8
 - CentOS 8
+- RockyLinux 8
+- AlmaLinux 8
 - Ubuntu 20.04 LTS
 
 
@@ -39,13 +42,13 @@ Example Playbook
 ----------------
 
 <pre><code>
-- name: Converge
+- name: sample playbook for role 'mariadb'
   hosts: all
   vars:
     mariadb_db_name: db01
     mariadb_db_user: user01
   tasks:
-    - name: Include role 'ansible-role-mariadb'
+    - name: Include role 'mariadb'
       include_role:
-        name: ansible-role-mariadb
+        name: mariadb
 </pre></code>
