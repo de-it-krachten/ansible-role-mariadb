@@ -1,25 +1,11 @@
+---
+
 generic:
   role_description: |
     Installs & configures MariaDB 10.x using packages from mariadb.com
-github:
-  fail_fast: false
-  parallel: false
+
 molecule:
   converge:
     vars:
       mariadb_db_name: db01
       mariadb_db_user: user01
-  platforms:
-    - rockylinux8
-    - ubuntu2004
-platforms:
-  - name: RHEL 8
-    image: rhel8
-  - name: CentOS 8
-    image: centos8
-  - name: RockyLinux 8
-    image: rockylinux8
-  - name: AlmaLinux 8
-    image: almalinux8
-  - name: Ubuntu 20.04 LTS
-    image: ubuntu2004
