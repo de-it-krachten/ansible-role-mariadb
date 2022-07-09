@@ -6,22 +6,22 @@
 Installs & configures MariaDB 10.x using packages from mariadb.com
 
 
-Platforms
---------------
+## Platforms
 
 Supported platforms
 
-- RHEL 8
-- CentOS 8
+- Red Hat Enterprise Linux 8<sup>1</sup>
 - RockyLinux 8
+- OracleLinux 8
 - AlmaLinux 8
+- Debian 11 (Bullseye)
 - Ubuntu 20.04 LTS
 
 Note:
 <sup>1</sup> : no automated testing is performed on these platforms
 
-Role Variables
---------------
+## Role Variables
+### defaults/main.yml
 <pre><code>
 # MariaDB version
 mariadb_release: 10.4
@@ -38,10 +38,40 @@ mariadb_innodb:
   innodb_lock_wait_timeout: 900
 </pre></code>
 
+### vars/Debian.yml
+<pre><code>
+mariadb_pre_packages:
+  - apt-transport-https
+  - software-properties-common
+  - python3-pymysql
+  - rsync
+mariadb_packages:
+  - mariadb-server
+  - mariadb-client
+  - mariadb-backup
 
-Example Playbook
-----------------
+mariadb_config_dir: /etc/mysql/conf.d
+mariadb_socket: /var/run/mysqld/mysqld.sock
+</pre></code>
 
+### vars/RedHat.yml
+<pre><code>
+mariadb_pre_packages:
+  - epel-release
+mariadb_packages:
+  - python3-mysql
+  - MariaDB-server
+  - MariaDB-backup
+  - galera-4
+
+mariadb_config_dir: /etc/my.cnf.d
+mariadb_socket: /var/lib/mysql/mysql.sock
+</pre></code>
+
+
+
+## Example Playbook
+### molecule/default/converge.yml
 <pre><code>
 - name: sample playbook for role 'mariadb'
   hosts: all
