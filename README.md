@@ -12,6 +12,7 @@ Supported platforms
 
 - Red Hat Enterprise Linux 8<sup>1</sup>
 - RockyLinux 8
+- RockyLinux 9
 - OracleLinux 8
 - AlmaLinux 8
 - Debian 11 (Bullseye)
@@ -75,6 +76,7 @@ mariadb_socket: /var/lib/mysql/mysql.sock
 <pre><code>
 - name: sample playbook for role 'mariadb'
   hosts: all
+  become: "{{ molecule['converge']['become'] | default('yes') }}"
   vars:
     mariadb_db_name: db01
     mariadb_db_user: user01
