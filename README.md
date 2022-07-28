@@ -75,6 +75,7 @@ mariadb_socket: /var/lib/mysql/mysql.sock
 <pre><code>
 - name: sample playbook for role 'mariadb'
   hosts: all
+  become: "{{ molecule['converge']['become'] | default('yes') }}"
   vars:
     mariadb_db_name: db01
     mariadb_db_user: user01
