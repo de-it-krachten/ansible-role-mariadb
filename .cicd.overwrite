@@ -64,5 +64,8 @@ platforms:
 molecule:
   converge:
     vars:
+      mariadb_user: root
+      mariadb_pwd: root1234
       mariadb_db_name: db01
       mariadb_db_user: user01
+      mariadb_socket_authentication: true

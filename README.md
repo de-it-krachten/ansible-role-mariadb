@@ -31,6 +31,13 @@ mariadb_pre_packages: []
 mariadb_packages: []
 mariadb_additional_packages: []
 
+# Shoud socket authentication be used
+mariadb_socket_authentication: true
+
+# Mariadb DB settings
+mariadb_db_name: ''
+mariadb_db_delete: false
+
 # innodb
 mariadb_innodb:
   innodb_buffer_pool_size: 1G
@@ -38,34 +45,46 @@ mariadb_innodb:
   innodb_lock_wait_timeout: 900
 </pre></code>
 
-### vars/Debian.yml
+### vars/family-RedHat.yml
 <pre><code>
-mariadb_pre_packages:
-  - apt-transport-https
-  - software-properties-common
-  - python3-pymysql
-  - rsync
-mariadb_packages:
-  - mariadb-server
-  - mariadb-client
-  - mariadb-backup
-
-mariadb_config_dir: /etc/mysql/conf.d
-mariadb_socket: /var/run/mysqld/mysqld.sock
-</pre></code>
-
-### vars/RedHat.yml
-<pre><code>
+# List of MariaDB package it depends on
 mariadb_pre_packages:
   - epel-release
+
+# List of MariaDB package
 mariadb_packages:
   - python3-mysql
   - MariaDB-server
   - MariaDB-backup
   - galera-4
 
+# Configuration path
 mariadb_config_dir: /etc/my.cnf.d
+
+# UNIX socket for authentication
 mariadb_socket: /var/lib/mysql/mysql.sock
+</pre></code>
+
+### vars/family-Debian.yml
+<pre><code>
+# List of MariaDB package it depends on
+mariadb_pre_packages:
+  - apt-transport-https
+  - software-properties-common
+  - python3-pymysql
+  - rsync
+
+# List of MariaDB package
+mariadb_packages:
+  - mariadb-server
+  - mariadb-client
+  - mariadb-backup
+
+# Configuration path
+mariadb_config_dir: /etc/mysql/conf.d
+
+# UNIX socket for authentication
+mariadb_socket: /var/run/mysqld/mysqld.sock
 </pre></code>
 
 
@@ -77,8 +96,11 @@ mariadb_socket: /var/lib/mysql/mysql.sock
   hosts: all
   become: "{{ molecule['converge']['become'] | default('yes') }}"
   vars:
+    mariadb_user: root
+    mariadb_pwd: root1234
     mariadb_db_name: db01
     mariadb_db_user: user01
+    mariadb_socket_authentication: True
   tasks:
     - name: Include role 'mariadb'
       include_role:

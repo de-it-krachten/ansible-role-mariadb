@@ -8,6 +8,9 @@ mariadb_pre_packages: []
 mariadb_packages: []
 mariadb_additional_packages: []
 
+# Shoud socket authentication be used
+mariadb_socket_authentication: true
+
 # Mariadb DB settings
 mariadb_db_name: ''
 mariadb_db_delete: false

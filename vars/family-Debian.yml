@@ -1,14 +1,20 @@
 ---
 
+# List of MariaDB package it depends on
 mariadb_pre_packages:
   - apt-transport-https
   - software-properties-common
   - python3-pymysql
   - rsync
+
+# List of MariaDB package
 mariadb_packages:
   - mariadb-server
   - mariadb-client
   - mariadb-backup
 
+# Configuration path
 mariadb_config_dir: /etc/mysql/conf.d
+
+# UNIX socket for authentication
 mariadb_socket: /var/run/mysqld/mysqld.sock

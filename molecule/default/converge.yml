@@ -4,8 +4,11 @@
   hosts: all
   become: "{{ molecule['converge']['become'] | default('yes') }}"
   vars:
+    mariadb_user: root
+    mariadb_pwd: root1234
     mariadb_db_name: db01
     mariadb_db_user: user01
+    mariadb_socket_authentication: True
   tasks:
     - name: Include role 'ansible-role-mariadb'
       include_role:
