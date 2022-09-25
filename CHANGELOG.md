@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/de-it-krachten/ansible-role-mariadb/compare/v1.2.0...v1.3.0) (2022-09-25)
+
+
+### Features
+
+* Add optional password authentication instead of socket ([2b995fd](https://github.com/de-it-krachten/ansible-role-mariadb/commit/2b995fd0a7071e4ff51e0bdc2f615be7dd9284c0))
+
 # [1.2.0](https://github.com/de-it-krachten/ansible-role-mariadb/compare/v1.1.0...v1.2.0) (2022-07-28)
 
 
