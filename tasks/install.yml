@@ -1,13 +1,85 @@
 ---
 
+- name: Setup-repository RedHat
+  block:
+
+    - name: Add external mariadb repository (RedHat)
+      yum_repository:
+        name: mariadb-main
+        description: MariaDB Server
+        baseurl: https://downloads.mariadb.com/MariaDB/mariadb-{{ mariadb_release }}/yum/rhel/$releasever/$basearch
+        gpgkey: https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
+        gpgcheck: true
+        enabled: true
+        module_hotfixes: true
+      register: _yum_repo
+
+    - name: Update package list (YUM)
+      yum:
+        list: updates
+        update_cache: true
+      when: _yum_repo.changed
+
+  when: ansible_os_family == 'RedHat'
+
+
+- name: Setup-repository Debian
+  block:
+
+    - name: Install GPG
+      apt:
+        name: gnupg
+        state: present
+
+    - name: Import APT key from official MariaDB repository (Debian)
+      apt_key:
+        url: https://mariadb.org/mariadb_release_signing_key.asc
+
+    - name: Add official MariaDB repository (Debian)
+      apt_repository:
+        repo: deb [arch=amd64,arm64,ppc64el] https://downloads.mariadb.com/MariaDB/mariadb-{{ mariadb_release }}/repo/ubuntu focal main
+        state: present
+      register: _apt_repo
+
+    - name: Update package list (APT)
+      apt:
+        force_apt_get: yes
+        update_cache: yes
+        cache_valid_time: 0
+      when: _apt_repo.changed
+
+  when: ansible_os_family == 'Debian'
+
+
+- name: Gather the package facts
+  package_facts:
+    manager: auto
+
+#- name: Get installed & obsolete packages
+#  set_fact:
+#    mariadb_obsolete_packages: >
+#      {{ packages | dict2items | json_query('[].key') | 
+#         map('regex_search','mariadb-.*',multiline=True) | 
+#         select('string') | list }}
+
+#- name: Remove OS-bundle packages
+#  package:
+#    name: "{{ item }}"
+#    state: absent
+#  loop: "{{ mariadb_obsolete_packages }}"
+#  when: ansible_os_family == 'RedHat'
+
 - name: Install package prerequisites
-  yum:
-    name: "{{ item }}"
+  package:
+    name: "{{ mariadb_pre_packages }}"
     state: present
-  loop: "{{ mariadb_package_prerequisites }}"
 
 - name: Install core packages
-  yum:
-    name: "{{ item }}"
+  package:
+    name: "{{ mariadb_packages }}"
     state: present
-  loop: "{{ mariadb_packages }}"
+
+- name: Install additional packages
+  package:
+    name: "{{ mariadb_additional_packages }}"
+    state: present

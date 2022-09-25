@@ -1,17 +1,31 @@
 ---
 
-- name: create database
+- name: Delete DB
+  mysql_db:
+    name: "{{ mariadb_db_name }}"
+    state: absent
+    login_unix_socket: "{{ mariadb_socket if mariadb_socket_authentication|bool else omit }}"
+    login_user: "{{ mariadb_user if not mariadb_socket_authentication|bool else omit }}"
+    login_password: "{{ mariadb_pwd if not mariadb_socket_authentication|bool else omit }}"
+  when: mariadb_db_delete|bool
+
+- name: Create database
   mysql_db:
     name: "{{ mariadb_db_name }}"
     state: present 
-    login_unix_socket: "{{ mariadb_socket }}"
+    login_unix_socket: "{{ mariadb_socket if mariadb_socket_authentication|bool else omit }}"
+    login_user: "{{ mariadb_user if not mariadb_socket_authentication|bool else omit }}"
+    login_password: "{{ mariadb_pwd if not mariadb_socket_authentication|bool else omit }}"
 
-- name: create db user 
+- name: Create db user
   mysql_user:
     name: "{{ mariadb_db_user }}"
+    password: "{{ mariadb_db_pwd | default(omit) }}"
     host: "{{ item }}"
-    state: present 
-    login_unix_socket: "{{ mariadb_socket }}"
+    state: present
+    login_unix_socket: "{{ mariadb_socket if mariadb_socket_authentication|bool else omit }}"
+    login_user: "{{ mariadb_user if not mariadb_socket_authentication|bool else omit }}"
+    login_password: "{{ mariadb_pwd if not mariadb_socket_authentication|bool else omit }}"
     priv: "{{ mariadb_db_name }}.*:ALL,GRANT"
   loop:
     - localhost

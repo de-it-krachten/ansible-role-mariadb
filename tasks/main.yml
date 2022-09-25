@@ -6,14 +6,19 @@
     params:
       files:
         - "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
-        - '{{ ansible_distribution }}.yml'
-        - "{{ ansible_os_family }}-{{ ansible_distribution_major_version }}.yml"
-        - '{{ ansible_os_family }}.yml'
+        - "{{ ansible_distribution }}.yml"
+        - "family-{{ ansible_os_family }}-{{ ansible_distribution_major_version }}.yml"
+        - "family-{{ ansible_os_family }}.yml"
         - default.yml
       paths:
-        - 'vars'
+        - "vars"
 
-- include_tasks: install-vendor.yml
-- include_tasks: config.yml
-- include_tasks: db.yml
+- name: Perform installation phase
+  include_tasks: install.yml
+
+- name: Perform configurarion phase
+  include_tasks: config.yml
+
+- name: Perform DB initialization
+  include_tasks: db.yml
   when: mariadb_db_name is defined
