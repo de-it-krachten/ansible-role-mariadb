@@ -9,48 +9,12 @@ platforms:
   rhel7:
     ci: false
     supported: false
-  rhel8:
-    ci: false
-    supported: true
-  rhel9:
-    ci: false
-    supported: false
   centos7:
     ci: false
     supported: false
-  centos8:
-    name: CentOS 8
-    ci: false
-  rockylinux8:
-    ci: true
-    supported: true
-  rockylinux9:
-    ci: true
-    supported: true
-  oraclelinux8:
-    ci: true
-    supported: true
-  almalinux8:
-    ci: true
-    supported: true
-  almalinux9:
-    ci: false
-    supported: false
-  debian10:
-    ci: false
-    supported: false
-  debian11:
-    ci: true
-    supported: true
   ubuntu1804:
     ci: false
     supported: false
-  ubuntu2004:
-    ci: true
-    supported: true
-  ubuntu2204:
-    ci: true
-    supported: true
   fedora35:
     ci: false
     supported: false
