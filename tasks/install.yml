@@ -55,20 +55,6 @@
   package_facts:
     manager: auto
 
-#- name: Get installed & obsolete packages
-#  set_fact:
-#    mariadb_obsolete_packages: >
-#      {{ packages | dict2items | json_query('[].key') | 
-#         map('regex_search','mariadb-.*',multiline=True) | 
-#         select('string') | list }}
-
-#- name: Remove OS-bundle packages
-#  package:
-#    name: "{{ item }}"
-#    state: absent
-#  loop: "{{ mariadb_obsolete_packages }}"
-#  when: ansible_os_family == 'RedHat'
-
 - name: Install package prerequisites
   package:
     name: "{{ mariadb_pre_packages }}"
