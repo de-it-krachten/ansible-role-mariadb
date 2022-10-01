@@ -11,10 +11,13 @@ Installs & configures MariaDB 10.x using packages from mariadb.com
 Supported platforms
 
 - Red Hat Enterprise Linux 8<sup>1</sup>
+- Red Hat Enterprise Linux 9<sup>1</sup>
 - RockyLinux 8
 - RockyLinux 9
 - OracleLinux 8
 - AlmaLinux 8
+- AlmaLinux 9
+- Debian 10 (Buster)
 - Debian 11 (Bullseye)
 - Ubuntu 20.04 LTS
 - Ubuntu 22.04 LTS

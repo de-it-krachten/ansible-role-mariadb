@@ -72,7 +72,6 @@ jobs:
           set -e
           yamllint .
           ansible-lint --exclude molecule/
-          echo "exit code : $?"
 
   molecule:
     name: Molecule
