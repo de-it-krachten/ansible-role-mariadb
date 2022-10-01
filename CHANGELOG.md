@@ -1,3 +1,15 @@
+# [1.4.0](https://github.com/de-it-krachten/ansible-role-mariadb/compare/v1.3.0...v1.4.0) (2022-10-01)
+
+
+### Bug Fixes
+
+* Activate CI for several additional platforms ([41e6d64](https://github.com/de-it-krachten/ansible-role-mariadb/commit/41e6d643015f8b3868fbaaba46c8fc2984574d75))
+
+
+### Features
+
+* Add support for Red Hat 9 / MariabDB 10.8 ([f57fea9](https://github.com/de-it-krachten/ansible-role-mariadb/commit/f57fea9be429a0065f7b16d3bfa1fd74168e4efe))
+
 # [1.3.0](https://github.com/de-it-krachten/ansible-role-mariadb/compare/v1.2.0...v1.3.0) (2022-09-25)
 
 
