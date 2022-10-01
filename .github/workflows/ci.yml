@@ -72,6 +72,7 @@ jobs:
           set -e
           yamllint .
           ansible-lint --exclude molecule/
+          echo "exit code : $?"
 
   molecule:
     name: Molecule
@@ -86,6 +87,10 @@ jobs:
             playbook: converge.yml
             # continue_on_error: false
             # failfast: true
+          - distro: rockylinux9
+            playbook: converge.yml
+            # continue_on_error: false
+            # failfast: true
           - distro: oraclelinux8
             playbook: converge.yml
             # continue_on_error: false
@@ -94,11 +99,23 @@ jobs:
             playbook: converge.yml
             # continue_on_error: false
             # failfast: true
+          - distro: almalinux9
+            playbook: converge.yml
+            # continue_on_error: false
+            # failfast: true
+          - distro: debian10
+            playbook: converge.yml
+            # continue_on_error: false
+            # failfast: true
           - distro: debian11
             playbook: converge.yml
             # continue_on_error: false
             # failfast: true
           - distro: ubuntu2004
+            playbook: converge.yml
+            # continue_on_error: false
+            # failfast: true
+          - distro: ubuntu2204
             playbook: converge.yml
             # continue_on_error: false
             # failfast: true

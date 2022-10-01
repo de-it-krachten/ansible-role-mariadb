@@ -1,5 +1,8 @@
 ---
 
+# MariaDB version
+mariadb_release: 10.4
+
 # List of MariaDB package it depends on
 mariadb_pre_packages:
   - epel-release

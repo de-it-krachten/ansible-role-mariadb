@@ -1,6 +1,7 @@
 ---
 
 - name: Setup-repository RedHat
+  when: ansible_os_family == 'RedHat'
   block:
 
     - name: Add external mariadb repository (RedHat)
@@ -20,10 +21,9 @@
         update_cache: true
       when: _yum_repo.changed
 
-  when: ansible_os_family == 'RedHat'
-
 
 - name: Setup-repository Debian
+  when: ansible_os_family == 'Debian'
   block:
 
     - name: Install GPG
@@ -37,7 +37,10 @@
 
     - name: Add official MariaDB repository (Debian)
       apt_repository:
-        repo: deb [arch=amd64,arm64,ppc64el] https://downloads.mariadb.com/MariaDB/mariadb-{{ mariadb_release }}/repo/ubuntu focal main
+        repo: >
+          deb [arch=amd64,arm64,ppc64el]
+          https://downloads.mariadb.com/MariaDB/mariadb-{{ mariadb_release }}/repo/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} main
+        filename: "mariadb-{{ mariadb_release }}"
         state: present
       register: _apt_repo
 
@@ -47,9 +50,6 @@
         update_cache: yes
         cache_valid_time: 0
       when: _apt_repo.changed
-
-  when: ansible_os_family == 'Debian'
-
 
 - name: Gather the package facts
   package_facts:
