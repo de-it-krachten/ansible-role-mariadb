@@ -1,3 +1,10 @@
+## [1.4.1](https://github.com/de-it-krachten/ansible-role-mariadb/compare/v1.4.0...v1.4.1) (2022-10-01)
+
+
+### Bug Fixes
+
+* Fix linting issues ([1c007f6](https://github.com/de-it-krachten/ansible-role-mariadb/commit/1c007f630ce24da8b06af1a90422a16805f03767))
+
 # [1.4.0](https://github.com/de-it-krachten/ansible-role-mariadb/compare/v1.3.0...v1.4.0) (2022-10-01)
 
 
