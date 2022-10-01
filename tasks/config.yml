@@ -20,6 +20,9 @@
   register: _mysql_info
 
 - name: Move from socket -> password
+  when:
+    - _mysql_info.version is defined
+    - not mariadb_socket_authentication|bool
   block:
 
     - name: Set root password
@@ -28,10 +31,6 @@
         password: "{{ mariadb_pwd }}"
         state: present
         login_unix_socket: "{{ mariadb_socket }}"
-
-  when:
-    - _mysql_info.version is defined
-    - not mariadb_socket_authentication|bool
 
 - name: Set a priv for user root on localhost
   mysql_user:
