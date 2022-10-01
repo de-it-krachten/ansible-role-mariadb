@@ -12,7 +12,7 @@
 - name: Create database
   mysql_db:
     name: "{{ mariadb_db_name }}"
-    state: present 
+    state: present
     login_unix_socket: "{{ mariadb_socket if mariadb_socket_authentication|bool else omit }}"
     login_user: "{{ mariadb_user if not mariadb_socket_authentication|bool else omit }}"
     login_password: "{{ mariadb_pwd if not mariadb_socket_authentication|bool else omit }}"

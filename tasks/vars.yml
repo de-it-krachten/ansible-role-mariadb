@@ -1,16 +1,20 @@
 ---
 
+- name: Clear platform variables
+  set_fact:
+    __platform_vars: {}
+
 - name: Create list of all platform default files
   set_fact:
     var_list: "{{ lookup('fileglob', 'defaults/*', wantlist=True) | regex_replace(role_path+'/') }}"
 
-- name: Load defaults/main.yml 
+- name: Load defaults/main.yml
   set_fact:
     __defaults_vars: "{{ lookup('file', 'defaults/main.yml', errors='ignore') | from_yaml }}"
 
 - name: Load variables based on OS type
   set_fact:
-    __platform_vars: "{{ (__platform_vars|default({})) | combine((lookup('file', item, errors='ignore') | from_yaml)) }}"
+    __platform_vars: "{{ __platform_vars | combine((lookup('file', item, errors='ignore') | from_yaml)) }}"
   loop:
     - "defaults/family-{{ ansible_os_family }}.yml"
     - "defaults/family-{{ ansible_os_family }}-{{ ansible_distribution_major_version }}.yml"
