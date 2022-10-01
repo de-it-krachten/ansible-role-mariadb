@@ -12,10 +12,12 @@ Supported platforms
 
 - Red Hat Enterprise Linux 8<sup>1</sup>
 - RockyLinux 8
+- RockyLinux 9
 - OracleLinux 8
 - AlmaLinux 8
 - Debian 11 (Bullseye)
 - Ubuntu 20.04 LTS
+- Ubuntu 22.04 LTS
 
 Note:
 <sup>1</sup> : no automated testing is performed on these platforms
@@ -23,9 +25,6 @@ Note:
 ## Role Variables
 ### defaults/main.yml
 <pre><code>
-# MariaDB version
-mariadb_release: 10.4
-
 # MariaDB packages
 mariadb_pre_packages: []
 mariadb_packages: []
@@ -45,8 +44,11 @@ mariadb_innodb:
   innodb_lock_wait_timeout: 900
 </pre></code>
 
-### vars/family-RedHat.yml
+### defaults/family-RedHat.yml
 <pre><code>
+# MariaDB version
+mariadb_release: 10.4
+
 # List of MariaDB package it depends on
 mariadb_pre_packages:
   - epel-release
@@ -65,8 +67,11 @@ mariadb_config_dir: /etc/my.cnf.d
 mariadb_socket: /var/lib/mysql/mysql.sock
 </pre></code>
 
-### vars/family-Debian.yml
+### defaults/family-Debian.yml
 <pre><code>
+# MariaDB version
+mariadb_release: 10.4
+
 # List of MariaDB package it depends on
 mariadb_pre_packages:
   - apt-transport-https
@@ -86,6 +91,32 @@ mariadb_config_dir: /etc/mysql/conf.d
 # UNIX socket for authentication
 mariadb_socket: /var/run/mysqld/mysqld.sock
 </pre></code>
+
+### defaults/Debian-11.yml
+<pre><code>
+# MariaDB version
+mariadb_release: 10.8
+</pre></code>
+
+### defaults/Ubuntu-22.yml
+<pre><code>
+# MariaDB version
+mariadb_release: 10.8
+</pre></code>
+
+### defaults/family-RedHat-9.yml
+<pre><code>
+# MariaDB version
+mariadb_release: 10.8
+
+# List of MariaDB package
+mariadb_packages:
+  - python3-mysqlclient
+  - MariaDB-server
+  - MariaDB-backup
+  - galera-4
+</pre></code>
+
 
 
 

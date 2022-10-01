@@ -37,7 +37,10 @@
 
     - name: Add official MariaDB repository (Debian)
       apt_repository:
-        repo: deb [arch=amd64,arm64,ppc64el] https://downloads.mariadb.com/MariaDB/mariadb-{{ mariadb_release }}/repo/ubuntu focal main
+        repo: >
+          deb [arch=amd64,arm64,ppc64el]
+          https://downloads.mariadb.com/MariaDB/mariadb-{{ mariadb_release }}/repo/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} main
+        filename: "mariadb-{{ mariadb_release }}"
         state: present
       register: _apt_repo
 

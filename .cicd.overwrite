@@ -25,8 +25,8 @@ platforms:
     ci: true
     supported: true
   rockylinux9:
-    ci: false
-    supported: false
+    ci: true
+    supported: true
   oraclelinux8:
     ci: true
     supported: true
@@ -49,8 +49,8 @@ platforms:
     ci: true
     supported: true
   ubuntu2204:
-    ci: false
-    supported: false
+    ci: true
+    supported: true
   fedora35:
     ci: false
     supported: false

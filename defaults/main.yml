@@ -1,8 +1,5 @@
 ---
 
-# MariaDB version
-mariadb_release: 10.4
-
 # MariaDB packages
 mariadb_pre_packages: []
 mariadb_packages: []
