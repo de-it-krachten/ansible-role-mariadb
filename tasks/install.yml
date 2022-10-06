@@ -5,7 +5,7 @@
   block:
 
     - name: Add external mariadb repository (RedHat)
-      yum_repository:
+      ansible.builtin.yum_repository:
         name: mariadb-main
         description: MariaDB Server
         baseurl: https://downloads.mariadb.com/MariaDB/mariadb-{{ mariadb_release }}/yum/rhel/$releasever/$basearch
@@ -16,7 +16,7 @@
       register: _yum_repo
 
     - name: Update package list (YUM)
-      yum:
+      ansible.builtin.yum:
         list: updates
         update_cache: true
       when: _yum_repo.changed
@@ -27,16 +27,16 @@
   block:
 
     - name: Install GPG
-      apt:
+      ansible.builtin.apt:
         name: gnupg
         state: present
 
     - name: Import APT key from official MariaDB repository (Debian)
-      apt_key:
+      ansible.builtin.apt_key:
         url: https://mariadb.org/mariadb_release_signing_key.asc
 
     - name: Add official MariaDB repository (Debian)
-      apt_repository:
+      ansible.builtin.apt_repository:
         repo: >
           deb [arch=amd64,arm64,ppc64el]
           https://downloads.mariadb.com/MariaDB/mariadb-{{ mariadb_release }}/repo/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} main
@@ -45,27 +45,27 @@
       register: _apt_repo
 
     - name: Update package list (APT)
-      apt:
+      ansible.builtin.apt:
         force_apt_get: yes
         update_cache: yes
         cache_valid_time: 0
       when: _apt_repo.changed
 
 - name: Gather the package facts
-  package_facts:
+  ansible.builtin.package_facts:
     manager: auto
 
 - name: Install package prerequisites
-  package:
+  ansible.builtin.package:
     name: "{{ mariadb_pre_packages }}"
     state: present
 
 - name: Install core packages
-  package:
+  ansible.builtin.package:
     name: "{{ mariadb_packages }}"
     state: present
 
 - name: Install additional packages
-  package:
+  ansible.builtin.package:
     name: "{{ mariadb_additional_packages }}"
     state: present

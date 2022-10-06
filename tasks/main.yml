@@ -1,14 +1,14 @@
 ---
 
 - name: Load variables based on OS type
-  include_tasks: vars.yml
+  ansible.builtin.include_tasks: vars.yml
 
 - name: Perform installation phase
-  include_tasks: install.yml
+  ansible.builtin.include_tasks: install.yml
 
 - name: Perform configurarion phase
-  include_tasks: config.yml
+  ansible.builtin.include_tasks: config.yml
 
 - name: Perform DB initialization
-  include_tasks: db.yml
+  ansible.builtin.include_tasks: db.yml
   when: mariadb_db_name is defined
