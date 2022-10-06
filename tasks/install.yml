@@ -12,7 +12,7 @@
         gpgkey: https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
         gpgcheck: true
         enabled: true
-        module_hotfixes: true
+        module_hotfixes: "{{ True if ansible_version.full is version('2.11', '>=') else omit }}"
       register: _yum_repo
 
     - name: Update package list (YUM)
