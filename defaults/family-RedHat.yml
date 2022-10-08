@@ -1,18 +1,8 @@
 ---
 
-# MariaDB version
-mariadb_release: 10.4
-
 # List of MariaDB package it depends on
 mariadb_pre_packages:
   - epel-release
-
-# List of MariaDB package
-mariadb_packages:
-  - python3-mysql
-  - MariaDB-server
-  - MariaDB-backup
-  - galera-4
 
 # Configuration path
 mariadb_config_dir: /etc/my.cnf.d

@@ -4,15 +4,11 @@
   when: ansible_os_family == 'RedHat'
   block:
 
-    - name: Add external mariadb repository (RedHat)
-      ansible.builtin.yum_repository:
-        name: mariadb-main
-        description: MariaDB Server
-        baseurl: https://downloads.mariadb.com/MariaDB/mariadb-{{ mariadb_release }}/yum/rhel/$releasever/$basearch
-        gpgkey: https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
-        gpgcheck: true
-        enabled: true
-        module_hotfixes: "{{ True if ansible_version.full is version('2.11', '>=') else omit }}"
+    - name: Use external repository from mariadb.com
+      ansible.builtin.template:
+        src: mariadb.repo.j2
+        dest: /etc/yum.repos.d/mariadb-main.repo
+        mode: "0644"
       register: _yum_repo
 
     - name: Update package list (YUM)
@@ -20,7 +16,6 @@
         list: updates
         update_cache: true
       when: _yum_repo.changed
-
 
 - name: Setup-repository Debian
   when: ansible_os_family == 'Debian'
