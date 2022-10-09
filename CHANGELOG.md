@@ -1,3 +1,11 @@
+# [1.5.0](https://github.com/de-it-krachten/ansible-role-mariadb/compare/v1.4.1...v1.5.0) (2022-10-09)
+
+
+### Features
+
+* Move to FQCN ([422df6d](https://github.com/de-it-krachten/ansible-role-mariadb/commit/422df6d1020fa048de2874b28cd9eda86ef3fc07))
+* Update CI to latest standards ([0ff1e9c](https://github.com/de-it-krachten/ansible-role-mariadb/commit/0ff1e9c5ebbab6bbbc6da6d5dc90ffadbbb0fba7))
+
 ## [1.4.1](https://github.com/de-it-krachten/ansible-role-mariadb/compare/v1.4.0...v1.4.1) (2022-10-01)
 
 
