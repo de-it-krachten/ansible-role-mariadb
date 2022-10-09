@@ -1,19 +1,19 @@
 ---
 
 - name: Show CPU/memory
-  debug:
+  ansible.builtin.debug:
     msg:
       - "ansible_processor_vcpus: {{ ansible_processor_vcpus }}"
       - "ansible_memtotal_mb: {{ ansible_memtotal_mb }}"
 
 - name: Start service mariadb
-  service:
+  ansible.builtin.service:
     name: mariadb
     enabled: yes
     state: started
 
 - name: Try connecting using socket
-  mysql_info:
+  community.mysql.mysql_info:
     login_user: root
     login_unix_socket: "{{ mariadb_socket }}"
   failed_when: false
@@ -22,60 +22,60 @@
 - name: Move from socket -> password
   when:
     - _mysql_info.version is defined
-    - not mariadb_socket_authentication|bool
+    - not mariadb_socket_authentication | bool
   block:
 
     - name: Set root password
-      mysql_user:
+      community.mysql.mysql_user:
         name: root
         password: "{{ mariadb_pwd }}"
         state: present
         login_unix_socket: "{{ mariadb_socket }}"
 
 - name: Set a priv for user root on localhost
-  mysql_user:
+  community.mysql.mysql_user:
     name: root
     state: present
-    login_unix_socket: "{{ mariadb_socket if mariadb_socket_authentication|bool else omit }}"
-    login_user: "{{ mariadb_user if not mariadb_socket_authentication|bool else omit }}"
-    login_password: "{{ mariadb_pwd if not mariadb_socket_authentication|bool else omit }}"
+    login_unix_socket: "{{ mariadb_socket if mariadb_socket_authentication | bool else omit }}"
+    login_user: "{{ mariadb_user if not mariadb_socket_authentication | bool else omit }}"
+    login_password: "{{ mariadb_pwd if not mariadb_socket_authentication | bool else omit }}"
     check_implicit_admin: true
     priv: '*.*:ALL,GRANT'
   notify:
     - Restart MariaDB
 
 - name: Remove remote root
-  mysql_user:
+  community.mysql.mysql_user:
     user: root
     state: absent
     check_implicit_admin: true
-    login_unix_socket: "{{ mariadb_socket if mariadb_socket_authentication|bool else omit }}"
-    login_user: "{{ mariadb_user if not mariadb_socket_authentication|bool else omit }}"
-    login_password: "{{ mariadb_pwd if not mariadb_socket_authentication|bool else omit }}"
+    login_unix_socket: "{{ mariadb_socket if mariadb_socket_authentication | bool else omit }}"
+    login_user: "{{ mariadb_user if not mariadb_socket_authentication | bool else omit }}"
+    login_password: "{{ mariadb_pwd if not mariadb_socket_authentication | bool else omit }}"
     host: "{{ item }}"
   loop:
     - "{{ ansible_fqdn }}"
     - "{{ inventory_hostname }}"
 
 - name: Ensure anonymous users are not in the database
-  mysql_user:
+  community.mysql.mysql_user:
     name: ''
     host_all: yes
     state: absent
-    login_unix_socket: "{{ mariadb_socket if mariadb_socket_authentication|bool else omit }}"
-    login_user: "{{ mariadb_user if not mariadb_socket_authentication|bool else omit }}"
-    login_password: "{{ mariadb_pwd if not mariadb_socket_authentication|bool else omit }}"
+    login_unix_socket: "{{ mariadb_socket if mariadb_socket_authentication | bool else omit }}"
+    login_user: "{{ mariadb_user if not mariadb_socket_authentication | bool else omit }}"
+    login_password: "{{ mariadb_pwd if not mariadb_socket_authentication | bool else omit }}"
 
 - name: Remove the test database
-  mysql_db:
+  community.mysql.mysql_db:
     name: test
     state: absent
-    login_unix_socket: "{{ mariadb_socket if mariadb_socket_authentication|bool else omit }}"
-    login_user: "{{ mariadb_user if not mariadb_socket_authentication|bool else omit }}"
-    login_password: "{{ mariadb_pwd if not mariadb_socket_authentication|bool else omit }}"
+    login_unix_socket: "{{ mariadb_socket if mariadb_socket_authentication | bool else omit }}"
+    login_user: "{{ mariadb_user if not mariadb_socket_authentication | bool else omit }}"
+    login_password: "{{ mariadb_pwd if not mariadb_socket_authentication | bool else omit }}"
 
 - name: Create custom config path
-  file:
+  ansible.builtin.file:
     path: "{{ mariadb_config_dir }}"
     state: directory
     owner: root
@@ -83,12 +83,12 @@
     mode: '0755'
 
 - name: Define mariadb_innodb
-  set_fact:
+  ansible.builtin.set_fact:
     mariadb_innodb: "{{ innodb }}"
   when: mariadb_innodb is undefined and innodb is defined
 
 - name: Configure innodb
-  template:
+  ansible.builtin.template:
     src: innodb.cnf.j2
     dest: "{{ mariadb_config_dir }}/innodb.cnf"
     mode: '0644'

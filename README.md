@@ -6,6 +6,16 @@
 Installs & configures MariaDB 10.x using packages from mariadb.com
 
 
+
+## Dependencies
+
+#### Roles
+None
+
+#### Collections
+- community.general
+- community.mysql
+
 ## Platforms
 
 Supported platforms
@@ -49,19 +59,9 @@ mariadb_innodb:
 
 ### defaults/family-RedHat.yml
 <pre><code>
-# MariaDB version
-mariadb_release: 10.4
-
 # List of MariaDB package it depends on
 mariadb_pre_packages:
   - epel-release
-
-# List of MariaDB package
-mariadb_packages:
-  - python3-mysql
-  - MariaDB-server
-  - MariaDB-backup
-  - galera-4
 
 # Configuration path
 mariadb_config_dir: /etc/my.cnf.d
@@ -120,6 +120,32 @@ mariadb_packages:
   - galera-4
 </pre></code>
 
+### defaults/family-RedHat-8.yml
+<pre><code>
+# MariaDB version
+mariadb_release: 10.6
+
+# List of MariaDB package
+mariadb_packages:
+  - python3-mysql
+  - MariaDB-server
+  - MariaDB-backup
+  - galera-4
+</pre></code>
+
+### defaults/family-RedHat-7.yml
+<pre><code>
+# MariaDB version
+mariadb_release: 10.4
+
+# List of MariaDB package
+mariadb_packages:
+  - python3-mysql
+  - MariaDB-server
+  - MariaDB-backup
+  - galera-4
+</pre></code>
+
 
 
 
@@ -137,6 +163,6 @@ mariadb_packages:
     mariadb_socket_authentication: True
   tasks:
     - name: Include role 'mariadb'
-      include_role:
+      ansible.builtin.include_role:
         name: mariadb
 </pre></code>

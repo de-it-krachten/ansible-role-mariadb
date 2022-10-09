@@ -11,5 +11,5 @@
     mariadb_socket_authentication: True
   tasks:
     - name: Include role 'ansible-role-mariadb'
-      include_role:
+      ansible.builtin.include_role:
         name: ansible-role-mariadb
