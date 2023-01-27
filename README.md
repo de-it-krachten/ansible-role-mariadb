@@ -25,6 +25,7 @@ Supported platforms
 - RockyLinux 8
 - RockyLinux 9
 - OracleLinux 8
+- OracleLinux 9
 - AlmaLinux 8
 - AlmaLinux 9
 - Debian 10 (Buster)
@@ -154,7 +155,7 @@ mariadb_packages:
 <pre><code>
 - name: sample playbook for role 'mariadb'
   hosts: all
-  become: "{{ molecule['converge']['become'] | default('yes') }}"
+  become: "yes"
   vars:
     mariadb_user: root
     mariadb_pwd: root1234
