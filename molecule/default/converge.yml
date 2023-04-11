@@ -9,6 +9,8 @@
     mariadb_db_name: db01
     mariadb_db_user: user01
     mariadb_socket_authentication: True
+  roles:
+    - deitkrachten.showinfo
   tasks:
     - name: Include role 'ansible-role-mariadb'
       ansible.builtin.include_role:

@@ -58,17 +58,10 @@ mariadb_innodb:
   innodb_lock_wait_timeout: 900
 </pre></code>
 
-### defaults/family-RedHat.yml
+### defaults/Ubuntu-22.yml
 <pre><code>
-# List of MariaDB package it depends on
-mariadb_pre_packages:
-  - epel-release
-
-# Configuration path
-mariadb_config_dir: /etc/my.cnf.d
-
-# UNIX socket for authentication
-mariadb_socket: /var/lib/mysql/mysql.sock
+# MariaDB version
+mariadb_release: 10.8
 </pre></code>
 
 ### defaults/family-Debian.yml
@@ -96,18 +89,6 @@ mariadb_config_dir: /etc/mysql/conf.d
 mariadb_socket: /var/run/mysqld/mysqld.sock
 </pre></code>
 
-### defaults/Debian-11.yml
-<pre><code>
-# MariaDB version
-mariadb_release: 10.8
-</pre></code>
-
-### defaults/Ubuntu-22.yml
-<pre><code>
-# MariaDB version
-mariadb_release: 10.8
-</pre></code>
-
 ### defaults/family-RedHat-9.yml
 <pre><code>
 # MariaDB version
@@ -119,6 +100,25 @@ mariadb_packages:
   - MariaDB-server
   - MariaDB-backup
   - galera-4
+</pre></code>
+
+### defaults/family-RedHat.yml
+<pre><code>
+# List of MariaDB package it depends on
+mariadb_pre_packages:
+  - epel-release
+
+# Configuration path
+mariadb_config_dir: /etc/my.cnf.d
+
+# UNIX socket for authentication
+mariadb_socket: /var/lib/mysql/mysql.sock
+</pre></code>
+
+### defaults/Debian-11.yml
+<pre><code>
+# MariaDB version
+mariadb_release: 10.8
 </pre></code>
 
 ### defaults/family-RedHat-8.yml
@@ -162,6 +162,8 @@ mariadb_packages:
     mariadb_db_name: db01
     mariadb_db_user: user01
     mariadb_socket_authentication: True
+  roles:
+    - deitkrachten.showinfo
   tasks:
     - name: Include role 'mariadb'
       ansible.builtin.include_role:

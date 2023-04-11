@@ -24,6 +24,17 @@ platforms:
   alpine3:
     ci: false
     supported: false
+  rockylinux8:
+    name: RockyLinux 8
+    ci: true
+    supported: true
+    galaxy:
+      name: EL
+      version: 8
+    molecule:
+      docker:
+        image: "geerlingguy/docker-rockylinux8-ansible:latest"
+        memory: 2048m
 
 molecule:
   converge:
