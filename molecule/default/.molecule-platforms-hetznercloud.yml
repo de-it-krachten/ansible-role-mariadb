@@ -45,6 +45,6 @@
   server_type: cx11
   image: fedora-36
 - name: fedora37
-  ci: true
+  ci: false
   server_type: cx11
   image: fedora-37
