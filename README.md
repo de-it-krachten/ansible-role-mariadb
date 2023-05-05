@@ -25,12 +25,14 @@ Supported platforms
 - RockyLinux 8
 - RockyLinux 9
 - OracleLinux 8
+- OracleLinux 9
 - AlmaLinux 8
 - AlmaLinux 9
 - Debian 10 (Buster)
 - Debian 11 (Bullseye)
 - Ubuntu 20.04 LTS
 - Ubuntu 22.04 LTS
+- Fedora 37
 
 Note:
 <sup>1</sup> : no automated testing is performed on these platforms
@@ -57,17 +59,10 @@ mariadb_innodb:
   innodb_lock_wait_timeout: 900
 </pre></code>
 
-### defaults/family-RedHat.yml
+### defaults/Ubuntu-22.yml
 <pre><code>
-# List of MariaDB package it depends on
-mariadb_pre_packages:
-  - epel-release
-
-# Configuration path
-mariadb_config_dir: /etc/my.cnf.d
-
-# UNIX socket for authentication
-mariadb_socket: /var/lib/mysql/mysql.sock
+# MariaDB version
+mariadb_release: 10.8
 </pre></code>
 
 ### defaults/family-Debian.yml
@@ -95,18 +90,6 @@ mariadb_config_dir: /etc/mysql/conf.d
 mariadb_socket: /var/run/mysqld/mysqld.sock
 </pre></code>
 
-### defaults/Debian-11.yml
-<pre><code>
-# MariaDB version
-mariadb_release: 10.8
-</pre></code>
-
-### defaults/Ubuntu-22.yml
-<pre><code>
-# MariaDB version
-mariadb_release: 10.8
-</pre></code>
-
 ### defaults/family-RedHat-9.yml
 <pre><code>
 # MariaDB version
@@ -118,6 +101,25 @@ mariadb_packages:
   - MariaDB-server
   - MariaDB-backup
   - galera-4
+</pre></code>
+
+### defaults/family-RedHat.yml
+<pre><code>
+# List of MariaDB package it depends on
+mariadb_pre_packages:
+  - epel-release
+
+# Configuration path
+mariadb_config_dir: /etc/my.cnf.d
+
+# UNIX socket for authentication
+mariadb_socket: /var/lib/mysql/mysql.sock
+</pre></code>
+
+### defaults/Debian-11.yml
+<pre><code>
+# MariaDB version
+mariadb_release: 10.8
 </pre></code>
 
 ### defaults/family-RedHat-8.yml
@@ -154,7 +156,7 @@ mariadb_packages:
 <pre><code>
 - name: sample playbook for role 'mariadb'
   hosts: all
-  become: "{{ molecule['converge']['become'] | default('yes') }}"
+  become: "yes"
   vars:
     mariadb_user: root
     mariadb_pwd: root1234
