@@ -11,7 +11,7 @@
         mode: "0644"
       register: _yum_repo
 
-    - name: Update package list (YUM)
+    - name: Update package list (YUM)  # noqa no-handler
       ansible.builtin.yum:
         list: updates
         update_cache: true
@@ -39,7 +39,7 @@
         state: present
       register: _apt_repo
 
-    - name: Update package list (APT)
+    - name: Update package list (APT)  # noqa no-handler
       ansible.builtin.apt:
         force_apt_get: yes
         update_cache: yes
