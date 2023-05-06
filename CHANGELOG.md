@@ -1,3 +1,10 @@
+## [1.5.1](https://github.com/de-it-krachten/ansible-role-mariadb/compare/v1.5.0...v1.5.1) (2023-05-06)
+
+
+### Bug Fixes
+
+* Update vars.yml as i was not working correctly ([6b41972](https://github.com/de-it-krachten/ansible-role-mariadb/commit/6b419724ec62c171e41eac820c8ba7e0add1acbc))
+
 # [1.5.0](https://github.com/de-it-krachten/ansible-role-mariadb/compare/v1.4.1...v1.5.0) (2022-10-09)
 
 
