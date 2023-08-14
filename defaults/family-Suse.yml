@@ -1,0 +1,10 @@
+---
+
+# List of MariaDB package it depends on
+mariadb_pre_packages: []
+
+# Configuration path
+mariadb_config_dir: /etc/my.cnf.d
+
+# UNIX socket for authentication
+mariadb_socket: /var/lib/mysql/mysql.sock

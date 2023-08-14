@@ -32,10 +32,8 @@ Supported platforms
 - openSUSE Leap 15
 - Debian 10 (Buster)<sup>1</sup>
 - Debian 11 (Bullseye)
-- Debian 12 (Bookworm)
 - Ubuntu 20.04 LTS
 - Ubuntu 22.04 LTS
-- Fedora 37
 
 Note:
 <sup>1</sup> : no automated testing is performed on these platforms
@@ -71,7 +69,7 @@ mariadb_release: 10.8
 ### defaults/family-Debian.yml
 <pre><code>
 # MariaDB version
-mariadb_release: 10.4
+mariadb_release: 10.10
 
 # List of MariaDB package it depends on
 mariadb_pre_packages:
@@ -97,6 +95,31 @@ mariadb_socket: /var/run/mysqld/mysqld.sock
 <pre><code>
 # MariaDB version
 mariadb_release: 10.8
+
+# List of MariaDB package
+mariadb_packages:
+  - python3-mysqlclient
+  - MariaDB-server
+  - MariaDB-backup
+  - galera-4
+</pre></code>
+
+### defaults/family-Suse.yml
+<pre><code>
+# List of MariaDB package it depends on
+mariadb_pre_packages: []
+
+# Configuration path
+mariadb_config_dir: /etc/my.cnf.d
+
+# UNIX socket for authentication
+mariadb_socket: /var/lib/mysql/mysql.sock
+</pre></code>
+
+### defaults/family-Suse-15.yml
+<pre><code>
+# MariaDB version
+mariadb_release: '10.10'
 
 # List of MariaDB package
 mariadb_packages:

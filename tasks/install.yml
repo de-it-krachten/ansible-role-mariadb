@@ -1,12 +1,32 @@
 ---
 
 - name: Setup-repository RedHat
+  when: ansible_os_family == 'Suse'
+  block:
+
+    - name: Import RPM signing key
+      ansible.builtin.rpm_key:
+        key: https://rpm.mariadb.org/RPM-GPG-KEY-MariaDB
+        state: present
+
+    - name: Use external repository from mariadb.com
+      ansible.builtin.template:
+        src: mariadb-suse.repo.j2
+        dest: /etc/zypp/repos.d/mariadb-main.repo
+        mode: "0644"
+
+    - name: Update package list
+      community.general.zypper:
+        name: zypper
+        update_cache: true
+
+- name: Setup-repository RedHat
   when: ansible_os_family == 'RedHat'
   block:
 
     - name: Use external repository from mariadb.com
       ansible.builtin.template:
-        src: mariadb.repo.j2
+        src: mariadb-redhat.repo.j2
         dest: /etc/yum.repos.d/mariadb-main.repo
         mode: "0644"
       register: _yum_repo

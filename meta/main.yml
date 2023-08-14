@@ -20,12 +20,8 @@ galaxy_info:
       versions:
         - buster
         - bullseye
-        - bookworm
     - name: Ubuntu
       versions:
         - focal
         - jammy
-    - name: Fedora
-      versions:
-        - all
 dependencies: []

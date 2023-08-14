@@ -12,10 +12,10 @@ platforms:
   centos7:
     ci: false
     supported: false
-  ubuntu1804:
+  debian12:
     ci: false
     supported: false
-  fedora38:
+  fedora37:
     ci: false
     supported: false
   fedora38:

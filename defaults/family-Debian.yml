@@ -1,7 +1,7 @@
 ---
 
 # MariaDB version
-mariadb_release: 10.4
+mariadb_release: 10.10
 
 # List of MariaDB package it depends on
 mariadb_pre_packages:
