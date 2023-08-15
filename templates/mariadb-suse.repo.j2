@@ -1,5 +1,5 @@
 [mariadb]
 name = MariaDB
-baseurl = https://rpm.mariadb.org/{{ mariadb_release }}/opensuse/$releasever/$basearch
-gpgkey = https://rpm.mariadb.org/RPM-GPG-KEY-MariaDB
+baseurl = {{ mariadb_repo }}
+gpgkey = {{ mariabdb_gpg_key }}
 gpgcheck = 1

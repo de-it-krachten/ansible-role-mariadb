@@ -28,6 +28,7 @@ platforms:
 molecule:
   converge:
     vars:
+      mariadb_release: '10.11'
       mariadb_user: root
       mariadb_pwd: root1234
       mariadb_db_name: db01

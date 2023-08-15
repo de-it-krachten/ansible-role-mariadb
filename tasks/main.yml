@@ -1,5 +1,10 @@
 ---
 
+- name: Assertions
+  ansible.builtin.assert:
+    that:
+      - mariadb_release is defined
+
 - name: Load variables based on OS type
   ansible.builtin.include_tasks: vars.yml
 
