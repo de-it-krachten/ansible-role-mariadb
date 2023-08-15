@@ -1,8 +1,5 @@
 ---
 
-# MariaDB version
-mariadb_release: 10.6
-
 # List of MariaDB package
 mariadb_packages:
   - python3-mysql

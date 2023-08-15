@@ -28,7 +28,9 @@ Supported platforms
 - OracleLinux 9
 - AlmaLinux 8
 - AlmaLinux 9
-- Debian 10 (Buster)
+- SUSE Linux Enterprise 15<sup>1</sup>
+- openSUSE Leap 15
+- Debian 10 (Buster)<sup>1</sup>
 - Debian 11 (Bullseye)
 - Ubuntu 20.04 LTS
 - Ubuntu 22.04 LTS
@@ -39,6 +41,9 @@ Note:
 ## Role Variables
 ### defaults/main.yml
 <pre><code>
+# MariaDB version
+# mariadb_release: '10.11'
+
 # MariaDB packages
 mariadb_pre_packages: []
 mariadb_packages: []
@@ -60,14 +65,18 @@ mariadb_innodb:
 
 ### defaults/Ubuntu-22.yml
 <pre><code>
-# MariaDB version
-mariadb_release: 10.8
+
 </pre></code>
 
 ### defaults/family-Debian.yml
 <pre><code>
-# MariaDB version
-mariadb_release: 10.4
+# Package repository to use
+mariadb_repo: >-
+  https://downloads.mariadb.com/MariaDB/mariadb-{{ mariadb_release }}/repo/{{ ansible_distribution | lower }}
+
+# GPG key
+mariabdb_gpg_key: >-
+  https://downloads.mariadb.com/MariaDB/MariaDB-Server-GPG-KEY
 
 # List of MariaDB package it depends on
 mariadb_pre_packages:
@@ -91,9 +100,36 @@ mariadb_socket: /var/run/mysqld/mysqld.sock
 
 ### defaults/family-RedHat-9.yml
 <pre><code>
-# MariaDB version
-mariadb_release: 10.8
+# List of MariaDB package
+mariadb_packages:
+  - python3-mysqlclient
+  - MariaDB-server
+  - MariaDB-backup
+  - galera-4
+</pre></code>
 
+### defaults/family-Suse.yml
+<pre><code>
+# Package repository to use
+mariadb_repo: >-
+  https://downloads.mariadb.com/MariaDB/mariadb-{{ mariadb_release }}/yum/opensuse/$releasever_major/$basearch
+
+# GPG key
+mariabdb_gpg_key: >-
+  https://downloads.mariadb.com/MariaDB/MariaDB-Server-GPG-KEY
+
+# List of MariaDB package it depends on
+mariadb_pre_packages: []
+
+# Configuration path
+mariadb_config_dir: /etc/my.cnf.d
+
+# UNIX socket for authentication
+mariadb_socket: /var/lib/mysql/mysql.sock
+</pre></code>
+
+### defaults/family-Suse-15.yml
+<pre><code>
 # List of MariaDB package
 mariadb_packages:
   - python3-mysqlclient
@@ -104,6 +140,14 @@ mariadb_packages:
 
 ### defaults/family-RedHat.yml
 <pre><code>
+# Package repository to use
+mariadb_repo: >-
+  https://downloads.mariadb.com/MariaDB/mariadb-{{ mariadb_release }}/yum/rhel/$releasever/$basearch
+
+# GPG key
+mariabdb_gpg_key: >-
+  https://downloads.mariadb.com/MariaDB/RPM-GPG-KEY-MariaDB
+
 # List of MariaDB package it depends on
 mariadb_pre_packages:
   - epel-release
@@ -117,15 +161,11 @@ mariadb_socket: /var/lib/mysql/mysql.sock
 
 ### defaults/Debian-11.yml
 <pre><code>
-# MariaDB version
-mariadb_release: 10.8
+
 </pre></code>
 
 ### defaults/family-RedHat-8.yml
 <pre><code>
-# MariaDB version
-mariadb_release: 10.6
-
 # List of MariaDB package
 mariadb_packages:
   - python3-mysql
@@ -136,9 +176,6 @@ mariadb_packages:
 
 ### defaults/family-RedHat-7.yml
 <pre><code>
-# MariaDB version
-mariadb_release: 10.4
-
 # List of MariaDB package
 mariadb_packages:
   - python3-mysql
@@ -157,6 +194,7 @@ mariadb_packages:
   hosts: all
   become: "yes"
   vars:
+    mariadb_release: 10.11
     mariadb_user: root
     mariadb_pwd: root1234
     mariadb_db_name: db01

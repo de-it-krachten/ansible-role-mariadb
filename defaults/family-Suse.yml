@@ -2,15 +2,14 @@
 
 # Package repository to use
 mariadb_repo: >-
-  https://downloads.mariadb.com/MariaDB/mariadb-{{ mariadb_release }}/yum/rhel/$releasever/$basearch
+  https://downloads.mariadb.com/MariaDB/mariadb-{{ mariadb_release }}/yum/opensuse/$releasever_major/$basearch
 
 # GPG key
 mariabdb_gpg_key: >-
-  https://downloads.mariadb.com/MariaDB/RPM-GPG-KEY-MariaDB
+  https://downloads.mariadb.com/MariaDB/MariaDB-Server-GPG-KEY
 
 # List of MariaDB package it depends on
-mariadb_pre_packages:
-  - epel-release
+mariadb_pre_packages: []
 
 # Configuration path
 mariadb_config_dir: /etc/my.cnf.d

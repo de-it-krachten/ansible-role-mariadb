@@ -1,5 +1,8 @@
 ---
 
+# MariaDB version
+# mariadb_release: '10.11'
+
 # MariaDB packages
 mariadb_pre_packages: []
 mariadb_packages: []

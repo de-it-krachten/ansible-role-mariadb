@@ -12,13 +12,13 @@ platforms:
   centos7:
     ci: false
     supported: false
-  ubuntu1804:
-    ci: false
-    supported: false
-  fedora36:
+  debian12:
     ci: false
     supported: false
   fedora37:
+    ci: false
+    supported: false
+  fedora38:
     ci: false
     supported: false
   alpine3:
@@ -28,6 +28,7 @@ platforms:
 molecule:
   converge:
     vars:
+      mariadb_release: '10.11'
       mariadb_user: root
       mariadb_pwd: root1234
       mariadb_db_name: db01
