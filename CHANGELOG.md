@@ -1,3 +1,16 @@
+# [1.6.0](https://github.com/de-it-krachten/ansible-role-mariadb/compare/v1.5.1...v1.6.0) (2023-08-15)
+
+
+### Bug Fixes
+
+* Fix support for (Open)SUSE ([3c9681f](https://github.com/de-it-krachten/ansible-role-mariadb/commit/3c9681fe0287b44de0e0dce5bef16eea38bc7fef))
+
+
+### Features
+
+* mariadb release no longer has a default ([37d46c2](https://github.com/de-it-krachten/ansible-role-mariadb/commit/37d46c28f93df2d9790ec85c347b252562066ed6))
+* Update supported platforms & CI ([8df5bda](https://github.com/de-it-krachten/ansible-role-mariadb/commit/8df5bdab5206599caefbef663e719caf67f6d25e))
+
 ## [1.5.1](https://github.com/de-it-krachten/ansible-role-mariadb/compare/v1.5.0...v1.5.1) (2023-05-06)
 
 
