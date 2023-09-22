@@ -1,3 +1,10 @@
+## [1.6.1](https://github.com/de-it-krachten/ansible-role-mariadb/compare/v1.6.0...v1.6.1) (2023-09-22)
+
+
+### Bug Fixes
+
+* Fix loop label to string ([46cf12f](https://github.com/de-it-krachten/ansible-role-mariadb/commit/46cf12f08b63c4c4db063bb2c6ca942e5d1de6e9))
+
 # [1.6.0](https://github.com/de-it-krachten/ansible-role-mariadb/compare/v1.5.1...v1.6.0) (2023-08-15)
 
 
