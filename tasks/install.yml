@@ -49,6 +49,7 @@
     - name: Import APT key from official MariaDB repository (Debian)
       ansible.builtin.apt_key:
         url: "{{ mariadb_apt_key }}"
+        validate_certs: no
 
     - name: Add official MariaDB repository (Debian)
       ansible.builtin.apt_repository:
