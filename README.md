@@ -30,10 +30,10 @@ Supported platforms
 - AlmaLinux 9
 - SUSE Linux Enterprise 15<sup>1</sup>
 - openSUSE Leap 15
-- Debian 10 (Buster)<sup>1</sup>
 - Debian 11 (Bullseye)
 - Ubuntu 20.04 LTS
 - Ubuntu 22.04 LTS
+- Ubuntu 24.04 LTS
 
 Note:
 <sup>1</sup> : no automated testing is performed on these platforms
@@ -63,7 +63,7 @@ mariadb_innodb:
   innodb_lock_wait_timeout: 900
 </pre></code>
 
-### defaults/Ubuntu-22.yml
+### defaults/Debian-11.yml
 <pre><code>
 
 </pre></code>
@@ -98,37 +98,27 @@ mariadb_config_dir: /etc/mysql/conf.d
 mariadb_socket: /var/run/mysqld/mysqld.sock
 </pre></code>
 
-### defaults/family-RedHat-9.yml
+### defaults/family-RedHat-7.yml
 <pre><code>
 # List of MariaDB package
 mariadb_packages:
-  - python3-mysqlclient
+  - python3-mysql
   - MariaDB-server
   - MariaDB-backup
   - galera-4
 </pre></code>
 
-### defaults/family-Suse.yml
+### defaults/family-RedHat-8.yml
 <pre><code>
-# Package repository to use
-mariadb_repo: >-
-  https://downloads.mariadb.com/MariaDB/mariadb-{{ mariadb_release }}/yum/opensuse/$releasever_major/$basearch
-
-# GPG key
-mariabdb_gpg_key: >-
-  https://downloads.mariadb.com/MariaDB/MariaDB-Server-GPG-KEY
-
-# List of MariaDB package it depends on
-mariadb_pre_packages: []
-
-# Configuration path
-mariadb_config_dir: /etc/my.cnf.d
-
-# UNIX socket for authentication
-mariadb_socket: /var/lib/mysql/mysql.sock
+# List of MariaDB package
+mariadb_packages:
+  - python3-mysql
+  - MariaDB-server
+  - MariaDB-backup
+  - galera-4
 </pre></code>
 
-### defaults/family-Suse-15.yml
+### defaults/family-RedHat-9.yml
 <pre><code>
 # List of MariaDB package
 mariadb_packages:
@@ -159,29 +149,39 @@ mariadb_config_dir: /etc/my.cnf.d
 mariadb_socket: /var/lib/mysql/mysql.sock
 </pre></code>
 
-### defaults/Debian-11.yml
-<pre><code>
-
-</pre></code>
-
-### defaults/family-RedHat-8.yml
+### defaults/family-Suse-15.yml
 <pre><code>
 # List of MariaDB package
 mariadb_packages:
-  - python3-mysql
+  - python3-mysqlclient
   - MariaDB-server
   - MariaDB-backup
   - galera-4
 </pre></code>
 
-### defaults/family-RedHat-7.yml
+### defaults/family-Suse.yml
 <pre><code>
-# List of MariaDB package
-mariadb_packages:
-  - python3-mysql
-  - MariaDB-server
-  - MariaDB-backup
-  - galera-4
+# Package repository to use
+mariadb_repo: >-
+  https://downloads.mariadb.com/MariaDB/mariadb-{{ mariadb_release }}/yum/opensuse/$releasever_major/$basearch
+
+# GPG key
+mariabdb_gpg_key: >-
+  https://downloads.mariadb.com/MariaDB/MariaDB-Server-GPG-KEY
+
+# List of MariaDB package it depends on
+mariadb_pre_packages: []
+
+# Configuration path
+mariadb_config_dir: /etc/my.cnf.d
+
+# UNIX socket for authentication
+mariadb_socket: /var/lib/mysql/mysql.sock
+</pre></code>
+
+### defaults/Ubuntu-22.yml
+<pre><code>
+
 </pre></code>
 
 
@@ -192,14 +192,14 @@ mariadb_packages:
 <pre><code>
 - name: sample playbook for role 'mariadb'
   hosts: all
-  become: "yes"
+  become: 'yes'
   vars:
     mariadb_release: 10.11
     mariadb_user: root
     mariadb_pwd: root1234
     mariadb_db_name: db01
     mariadb_db_user: user01
-    mariadb_socket_authentication: True
+    mariadb_socket_authentication: true
   tasks:
     - name: Include role 'mariadb'
       ansible.builtin.include_role:
