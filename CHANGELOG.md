@@ -1,3 +1,10 @@
+# [1.7.0](https://github.com/de-it-krachten/ansible-role-mariadb/compare/v1.6.1...v1.7.0) (2024-06-03)
+
+
+### Features
+
+* Add support for Ubuntu 24.04 LTS + Fedora 40 ([1691347](https://github.com/de-it-krachten/ansible-role-mariadb/commit/16913474ef71ecbbcfc0f03a653b250f5cef986f))
+
 ## [1.6.1](https://github.com/de-it-krachten/ansible-role-mariadb/compare/v1.6.0...v1.6.1) (2023-09-22)
 
 
