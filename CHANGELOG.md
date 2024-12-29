@@ -1,3 +1,10 @@
+# [1.8.0](https://github.com/de-it-krachten/ansible-role-mariadb/compare/v1.7.0...v1.8.0) (2024-12-29)
+
+
+### Features
+
+* Update supported platforms & CI ([0b2d6a1](https://github.com/de-it-krachten/ansible-role-mariadb/commit/0b2d6a1504469e7b6c50000059b6bb2ae3f4668f))
+
 # [1.7.0](https://github.com/de-it-krachten/ansible-role-mariadb/compare/v1.6.1...v1.7.0) (2024-06-03)
 
 
