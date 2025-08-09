@@ -3,7 +3,7 @@
 dependency:
   name: galaxy
 driver:
-  name: hetznercloud
+  name: molecule_hetznercloud
 lint: |
   set -e
   yamllint .
@@ -13,7 +13,7 @@ lint: |
 platforms:
 {% for platform in MOLECULE_DISTROS %}
   - name: mariadb-{{ platform.name }}-node1
-    server_type: "{{ platform.server_type | default('cx11') }}"
+    server_type: "{{ platform.server_type | default('cx22') }}"
     image: "{{ platform.image }}"
     location: "{{ platform.location | default('hel1') }}"
 {% endfor %}
@@ -33,7 +33,7 @@ provisioner:
   playbooks:
     converge: ${MOLECULE_PLAYBOOK:-converge.yml}
   inventory:
-    group_vars: {"linux": {"ansible_user": "vagrant", "ansible_password": "vagrant"}, "windows": {"ansible_user": "vagrant", "ansible_password": "vagrant", "ansible_become_user": "vagrant", "ansible_become_method": "runas", "ansible_connection": "ssh", "ansible_shell_type": "cmd"}}
+    group_vars: {"linux": {"ansible_user": "vagrant", "ansible_password": "vagrant"}, "windows": {"ansible_user": "vagrant", "ansible_password": "vagrant", "ansible_become_user": "vagrant", "ansible_become_method": "runas", "ansible_connection": "ssh", "ansible_shell_type": "cmd"}, "all": {"mariadb_release": "10.11"}}
     host_vars: {}
 scenario:
   name: default

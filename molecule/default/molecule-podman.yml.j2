@@ -67,7 +67,7 @@ provisioner:
   playbooks:
     converge: ${MOLECULE_PLAYBOOK:-converge.yml}
   inventory:
-    group_vars: {"linux": {"ansible_user": "vagrant", "ansible_password": "vagrant"}, "windows": {"ansible_user": "vagrant", "ansible_password": "vagrant", "ansible_become_user": "vagrant", "ansible_become_method": "runas", "ansible_connection": "ssh", "ansible_shell_type": "cmd"}}
+    group_vars: {"linux": {"ansible_user": "vagrant", "ansible_password": "vagrant"}, "windows": {"ansible_user": "vagrant", "ansible_password": "vagrant", "ansible_become_user": "vagrant", "ansible_become_method": "runas", "ansible_connection": "ssh", "ansible_shell_type": "cmd"}, "all": {"mariadb_release": "10.11"}}
     host_vars: {}
 scenario:
   name: default
