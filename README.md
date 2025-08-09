@@ -31,7 +31,7 @@ Supported platforms
 - SUSE Linux Enterprise 15<sup>1</sup>
 - openSUSE Leap 15
 - Debian 11 (Bullseye)
-- Ubuntu 20.04 LTS
+- Debian 12 (Bookworm)
 - Ubuntu 22.04 LTS
 - Ubuntu 24.04 LTS
 
@@ -194,7 +194,6 @@ mariadb_socket: /var/lib/mysql/mysql.sock
   hosts: all
   become: 'yes'
   vars:
-    mariadb_release: 10.11
     mariadb_user: root
     mariadb_pwd: root1234
     mariadb_db_name: db01

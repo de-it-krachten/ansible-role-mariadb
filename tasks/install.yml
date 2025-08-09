@@ -31,8 +31,8 @@
         mode: "0644"
       register: _yum_repo
 
-    - name: Update package list (YUM)  # noqa no-handler
-      ansible.builtin.yum:
+    - name: Update package list (DNF)  # noqa no-handler
+      ansible.builtin.dnf:
         list: updates
         update_cache: true
       when: _yum_repo.changed
@@ -46,17 +46,51 @@
         name: gnupg
         state: present
 
-    - name: Import APT key from official MariaDB repository (Debian)
-      ansible.builtin.apt_key:
+    - name: Download APT signing key
+      ansible.builtin.get_url:
         url: https://mariadb.org/mariadb_release_signing_key.asc
+        dest: /tmp/mariadb.asc
+        mode: "0644"
+      changed_when: false
 
-    - name: Add official MariaDB repository (Debian)
+    - name: Convert APT key into binary format
+      ansible.builtin.command:
+        cmd: gpg --batch --yes --no-tty --dearmor -o /tmp/mariadb.gpg /tmp/mariadb.asc
+      changed_when: false
+
+    - name: Import Microsoft GPG key
+      ansible.builtin.apt_key:
+        state: present
+        file: /tmp/mariadb.gpg
+        keyring: /etc/apt/trusted.gpg.d/mariadb.gpg
+      become: yes
+      when: ansible_distribution_major_version | int < 12
+
+    - name: Copy APT signing key into the proper drop-in directory
+      ansible.builtin.copy:
+        src: /tmp/mariadb.gpg
+        dest: /etc/apt/trusted.gpg.d/mariadb.gpg
+        remote_src: yes
+        mode: "0644"
+      when: ansible_distribution_major_version | int >= 12
+
+    - name: Setup Microsoft APT repository  # noqa jinja[spacing]
       ansible.builtin.apt_repository:
-        repo: >
-          deb [arch=amd64,arm64,ppc64el]
-          {{  mariadb_repo }} {{ ansible_distribution_release }} main
+        repo: >-
+          {%- if ansible_distribution_major_version | int < 12 -%}
+          deb [arch=amd64,arm64]
+          {{  mariadb_repo }}
+          {{ ansible_distribution_release }}
+          main
+          {%- else -%}
+          deb [arch=amd64,arm64 signed-by=/etc/apt/trusted.gpg.d/mariadb.gpg]
+          {{  mariadb_repo }}
+          {{ ansible_distribution_release }}
+          main
+          {%- endif -%}
         filename: "mariadb-{{ mariadb_release }}"
         state: present
+      become: yes
       register: _apt_repo
 
     - name: Update package list (APT)  # noqa no-handler

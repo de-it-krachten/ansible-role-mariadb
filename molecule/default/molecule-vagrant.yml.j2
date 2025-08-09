@@ -34,7 +34,7 @@ platforms:
 {% if not platform.name | regex_search('win2') %}
     config_options:
       ssh.keep_alive: yes
-      ssh.remote_user: "'vagrant'"
+      ssh.remote_user: "vagrant"
 {% endif %}
     groups:
 {% if platform.groups is undefined or platform.groups | length == 0 %}
@@ -57,12 +57,13 @@ provisioner:
   env:
     ANSIBLE_PIPELINING: "True"
     ANSIBLE_VERBOSITY: 0
+    ANSIBLE_LIBRARY: '{{ Ansible_driver_libary }}'
   lint:
     name: ansible-lint
   playbooks:
     converge: ${MOLECULE_PLAYBOOK:-converge.yml}
   inventory:
-    group_vars: {"linux": {"ansible_user": "vagrant", "ansible_password": "vagrant"}, "windows": {"ansible_user": "vagrant", "ansible_password": "vagrant", "ansible_become_user": "vagrant", "ansible_become_method": "runas", "ansible_connection": "ssh", "ansible_shell_type": "cmd"}}
+    group_vars: {"linux": {"ansible_user": "vagrant", "ansible_password": "vagrant"}, "windows": {"ansible_user": "vagrant", "ansible_password": "vagrant", "ansible_become_user": "vagrant", "ansible_become_method": "runas", "ansible_connection": "ssh", "ansible_shell_type": "cmd"}, "all": {"mariadb_release": "10.11"}}
     host_vars: {}
 scenario:
   name: default

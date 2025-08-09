@@ -6,19 +6,25 @@ generic:
 
 # Supported platforms
 platforms:
-  rhel7:
+  rhel10:
     ci: false
     supported: false
-  centos7:
+  rockylinux10:
     ci: false
     supported: false
-  debian12:
+  oraclelinux10:
     ci: false
     supported: false
-  fedora40:
+  almalinux10:
+    ci: false
+    supported: false
+  debian13:
     ci: false
     supported: false
   fedora41:
+    ci: false
+    supported: false
+  fedora42:
     ci: false
     supported: false
   alpine3:
@@ -28,9 +34,14 @@ platforms:
 molecule:
   converge:
     vars:
-      mariadb_release: '10.11'
       mariadb_user: root
       mariadb_pwd: root1234
       mariadb_db_name: db01
       mariadb_db_user: user01
       mariadb_socket_authentication: true
+  group_vars:
+    all:
+      mariadb_release: '10.11'
+#  host_vars:
+#    mariadb-debian13-node1:
+#      mariadb_release: '12.0'
