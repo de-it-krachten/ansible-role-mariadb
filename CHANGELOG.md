@@ -1,3 +1,12 @@
+# [1.9.0](https://github.com/de-it-krachten/ansible-role-mariadb/compare/v1.8.0...v1.9.0) (2026-03-15)
+
+
+### Features
+
+* Drop support for openSUSE Leap 15 ([1928f9c](https://github.com/de-it-krachten/ansible-role-mariadb/commit/1928f9c8cdcfff6d3bf07aae720ee8e0954ff4d6))
+* Drop support for SUSE Linux Enterprise 15 ([4bbb7f0](https://github.com/de-it-krachten/ansible-role-mariadb/commit/4bbb7f07040ff33714ee3ccb223692003fc33a2a))
+* Move from mariadb.com -> mariadb.org ([fa048d6](https://github.com/de-it-krachten/ansible-role-mariadb/commit/fa048d6e4b14325b6c009d8a95d7b7603a762fd0))
+
 # [1.8.0](https://github.com/de-it-krachten/ansible-role-mariadb/compare/v1.7.0...v1.8.0) (2024-12-29)
 
 
