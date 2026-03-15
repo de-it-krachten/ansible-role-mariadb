@@ -28,8 +28,6 @@ Supported platforms
 - OracleLinux 9
 - AlmaLinux 8
 - AlmaLinux 9
-- SUSE Linux Enterprise 15<sup>1</sup>
-- openSUSE Leap 15
 - Debian 11 (Bullseye)
 - Debian 12 (Bookworm)
 - Ubuntu 22.04 LTS
@@ -37,6 +35,7 @@ Supported platforms
 
 Note:
 <sup>1</sup> : no automated testing is performed on these platforms
+
 
 ## Role Variables
 ### defaults/main.yml
@@ -72,11 +71,11 @@ mariadb_innodb:
 <pre><code>
 # Package repository to use
 mariadb_repo: >-
-  https://downloads.mariadb.com/MariaDB/mariadb-{{ mariadb_release }}/repo/{{ ansible_distribution | lower }}
+  https://deb.mariadb.org/{{ mariadb_release }}/ubuntu
 
 # GPG key
 mariabdb_gpg_key: >-
-  https://downloads.mariadb.com/MariaDB/MariaDB-Server-GPG-KEY
+  https://mariadb.org/mariadb_release_signing_key.pgp
 
 # List of MariaDB package it depends on
 mariadb_pre_packages:
@@ -132,11 +131,11 @@ mariadb_packages:
 <pre><code>
 # Package repository to use
 mariadb_repo: >-
-  https://downloads.mariadb.com/MariaDB/mariadb-{{ mariadb_release }}/yum/rhel/$releasever/$basearch
+  https://rpm.mariadb.org/{{ mariadb_release }}/rhel/$releasever/$basearch
 
 # GPG key
 mariabdb_gpg_key: >-
-  https://downloads.mariadb.com/MariaDB/RPM-GPG-KEY-MariaDB
+  https://rpm.mariadb.org/RPM-GPG-KEY-MariaDB
 
 # List of MariaDB package it depends on
 mariadb_pre_packages:
@@ -194,6 +193,7 @@ mariadb_socket: /var/lib/mysql/mysql.sock
   hosts: all
   become: 'yes'
   vars:
+    molecule_driver: '{{ lookup(''env'', ''MOLECULE_DRIVER_NAME'') }}'
     mariadb_user: root
     mariadb_pwd: root1234
     mariadb_db_name: db01

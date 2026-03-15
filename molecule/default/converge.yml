@@ -4,6 +4,7 @@
   hosts: all
   become: "yes"
   vars:
+    molecule_driver: "{{ lookup('env', 'MOLECULE_DRIVER_NAME') }}"
     mariadb_user: root
     mariadb_pwd: root1234
     mariadb_db_name: db01
