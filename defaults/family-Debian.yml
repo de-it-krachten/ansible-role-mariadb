@@ -2,11 +2,11 @@
 
 # Package repository to use
 mariadb_repo: >-
-  https://downloads.mariadb.com/MariaDB/mariadb-{{ mariadb_release }}/repo/{{ ansible_distribution | lower }}
+  https://deb.mariadb.org/{{ mariadb_release }}/{{ ansible_distribution | lower }}
 
 # GPG key
 mariabdb_gpg_key: >-
-  https://downloads.mariadb.com/MariaDB/MariaDB-Server-GPG-KEY
+  https://mariadb.org/mariadb_release_signing_key.pgp
 
 # List of MariaDB package it depends on
 mariadb_pre_packages:

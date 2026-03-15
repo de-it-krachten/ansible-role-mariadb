@@ -71,11 +71,11 @@ mariadb_innodb:
 <pre><code>
 # Package repository to use
 mariadb_repo: >-
-  https://downloads.mariadb.com/MariaDB/mariadb-{{ mariadb_release }}/repo/{{ ansible_distribution | lower }}
+  https://deb.mariadb.org/{{ mariadb_release }}/ubuntu
 
 # GPG key
 mariabdb_gpg_key: >-
-  https://downloads.mariadb.com/MariaDB/MariaDB-Server-GPG-KEY
+  https://mariadb.org/mariadb_release_signing_key.pgp
 
 # List of MariaDB package it depends on
 mariadb_pre_packages:
@@ -131,11 +131,11 @@ mariadb_packages:
 <pre><code>
 # Package repository to use
 mariadb_repo: >-
-  https://downloads.mariadb.com/MariaDB/mariadb-{{ mariadb_release }}/yum/rhel/$releasever/$basearch
+  https://rpm.mariadb.org/{{ mariadb_release }}/rhel/$releasever/$basearch
 
 # GPG key
 mariabdb_gpg_key: >-
-  https://downloads.mariadb.com/MariaDB/RPM-GPG-KEY-MariaDB
+  https://rpm.mariadb.org/RPM-GPG-KEY-MariaDB
 
 # List of MariaDB package it depends on
 mariadb_pre_packages:
