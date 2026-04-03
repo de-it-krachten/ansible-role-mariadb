@@ -44,7 +44,7 @@
   ci: true
   image: docker.io/geerlingguy/docker-rockylinux9-ansible:latest
 - name: rockylinux10
-  ci: false
+  ci: true
   image: docker.io/geerlingguy/docker-rockylinux10-ansible:latest
 - name: oraclelinux8
   ci: true
@@ -53,7 +53,7 @@
   ci: true
   image: docker.io/dropveter/oraclelinux9-ansible
 - name: oraclelinux10
-  ci: false
+  ci: true
   image: docker.io/dropveter/oraclelinux10-ansible
 - name: olam8
   ci: false
@@ -65,7 +65,7 @@
   ci: true
   image: docker.io/dropveter/almalinux9-ansible
 - name: almalinux10
-  ci: false
+  ci: true
   image: docker.io/dropveter/almalinux10-ansible
 - name: opensuse15
   ci: false

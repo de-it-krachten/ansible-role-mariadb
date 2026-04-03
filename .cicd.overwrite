@@ -6,18 +6,6 @@ generic:
 
 # Supported platforms
 platforms:
-  rhel10:
-    supported: false
-    ci: false
-  rockylinux10:
-    supported: false
-    ci: false
-  oraclelinux10:
-    supported: false
-    ci: false
-  almalinux10:
-    supported: false
-    ci: false
   fedora42:
     supported: false
     ci: false

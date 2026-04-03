@@ -193,6 +193,15 @@ jobs:
             python: "3.13"
             hetznercloud: True
 
+          - name: rockylinux10
+            runs_on: ubuntu-22.04
+            distro: rockylinux10
+            playbook: converge.yml
+            ansible: "ansible-core>2.18,<2.19"
+            ansible_lint: "ansible-lint"
+            python: "3.13"
+            hetznercloud: True
+
           - name: oraclelinux8
             runs_on: ubuntu-22.04
             distro: oraclelinux8
@@ -211,6 +220,15 @@ jobs:
             python: "3.13"
             hetznercloud: False
 
+          - name: oraclelinux10
+            runs_on: ubuntu-22.04
+            distro: oraclelinux10
+            playbook: converge.yml
+            ansible: "ansible-core>2.18,<2.19"
+            ansible_lint: "ansible-lint"
+            python: "3.13"
+            hetznercloud: False
+
           - name: almalinux8
             runs_on: ubuntu-22.04
             distro: almalinux8
@@ -223,6 +241,15 @@ jobs:
           - name: almalinux9
             runs_on: ubuntu-22.04
             distro: almalinux9
+            playbook: converge.yml
+            ansible: "ansible-core>2.18,<2.19"
+            ansible_lint: "ansible-lint"
+            python: "3.13"
+            hetznercloud: False
+
+          - name: almalinux10
+            runs_on: ubuntu-22.04
+            distro: almalinux10
             playbook: converge.yml
             ansible: "ansible-core>2.18,<2.19"
             ansible_lint: "ansible-lint"
