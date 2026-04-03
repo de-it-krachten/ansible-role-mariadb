@@ -1,0 +1,4 @@
+---
+
+# Install from distro (vendor) or external provider (oss)
+mariadb_type: vendor

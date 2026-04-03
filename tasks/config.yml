@@ -31,6 +31,7 @@
         password: "{{ mariadb_pwd }}"
         state: present
         login_unix_socket: "{{ mariadb_socket }}"
+        column_case_sensitive: "{{ mariadb_column_case_sensitive | bool }}"
 
 - name: Set a priv for user root on localhost
   community.mysql.mysql_user:
@@ -41,18 +42,20 @@
     login_password: "{{ mariadb_pwd if not mariadb_socket_authentication | bool else omit }}"
     check_implicit_admin: true
     priv: '*.*:ALL,GRANT'
+    column_case_sensitive: "{{ mariadb_column_case_sensitive | bool }}"
   notify:
     - Restart MariaDB
 
 - name: Remove remote root
   community.mysql.mysql_user:
-    user: root
+    name: root
     state: absent
     check_implicit_admin: true
     login_unix_socket: "{{ mariadb_socket if mariadb_socket_authentication | bool else omit }}"
     login_user: "{{ mariadb_user if not mariadb_socket_authentication | bool else omit }}"
     login_password: "{{ mariadb_pwd if not mariadb_socket_authentication | bool else omit }}"
     host: "{{ item }}"
+    column_case_sensitive: "{{ mariadb_column_case_sensitive | bool }}"
   loop:
     - "{{ ansible_fqdn }}"
     - "{{ inventory_hostname }}"
@@ -65,6 +68,7 @@
     login_unix_socket: "{{ mariadb_socket if mariadb_socket_authentication | bool else omit }}"
     login_user: "{{ mariadb_user if not mariadb_socket_authentication | bool else omit }}"
     login_password: "{{ mariadb_pwd if not mariadb_socket_authentication | bool else omit }}"
+    column_case_sensitive: "{{ mariadb_column_case_sensitive | bool }}"
 
 - name: Remove the test database
   community.mysql.mysql_db:

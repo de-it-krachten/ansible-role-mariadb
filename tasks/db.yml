@@ -27,6 +27,7 @@
     login_user: "{{ mariadb_user if not mariadb_socket_authentication | bool else omit }}"
     login_password: "{{ mariadb_pwd if not mariadb_socket_authentication | bool else omit }}"
     priv: "{{ mariadb_db_name }}.*:ALL,GRANT"
+    column_case_sensitive: "{{ mariadb_column_case_sensitive | bool }}"
   loop:
     - localhost
 #    - "{{ inventory_hostname }}"

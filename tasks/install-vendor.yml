@@ -1,0 +1,16 @@
+---
+
+- name: Install package prerequisites
+  ansible.builtin.package:
+    name: "{{ mariadb_pre_packages }}"
+    state: present
+
+- name: Install core packages
+  ansible.builtin.package:
+    name: "{{ mariadb_packages }}"
+    state: present
+
+- name: Install additional packages
+  ansible.builtin.package:
+    name: "{{ mariadb_additional_packages }}"
+    state: present
