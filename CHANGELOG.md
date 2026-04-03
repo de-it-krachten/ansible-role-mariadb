@@ -1,3 +1,15 @@
+# [1.10.0](https://github.com/de-it-krachten/ansible-role-mariadb/compare/v1.9.0...v1.10.0) (2026-04-03)
+
+
+### Features
+
+* Added support for AlmaLinux 10 ([0d9c840](https://github.com/de-it-krachten/ansible-role-mariadb/commit/0d9c840bf3dd315ec11d125fa53f66a5431d62f9))
+* Added support for Debian 13 (Trixie) ([6747d80](https://github.com/de-it-krachten/ansible-role-mariadb/commit/6747d80469e6e60b0759a733aea1810487d9cb23))
+* Added support for OracleLinux 10 ([b5b20b6](https://github.com/de-it-krachten/ansible-role-mariadb/commit/b5b20b686c68112822719df924aa4902b97aa418))
+* Added support for Red Hat Enterprise Linux 10 ([2762327](https://github.com/de-it-krachten/ansible-role-mariadb/commit/276232787d9bb00ed6b2f183aac86f2edc1f941f))
+* Added support for RockyLinux 10 ([dd4c4af](https://github.com/de-it-krachten/ansible-role-mariadb/commit/dd4c4af93399a621beb93ad5e5e23dfe48660480))
+* Added support for Ubuntu 26.04 LTS ([b2315e8](https://github.com/de-it-krachten/ansible-role-mariadb/commit/b2315e8724125a7f34d80a50f7b355ce37424b4b))
+
 # [1.9.0](https://github.com/de-it-krachten/ansible-role-mariadb/compare/v1.8.0...v1.9.0) (2026-03-15)
 
 
