@@ -1,0 +1,8 @@
+---
+
+# List of MariaDB package it depends on
+mariadb_pre_packages:
+  - apt-transport-https
+  # - software-properties-common
+  - python3-pymysql
+  - rsync
