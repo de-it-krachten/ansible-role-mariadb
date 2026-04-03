@@ -22,16 +22,22 @@ Supported platforms
 
 - Red Hat Enterprise Linux 8<sup>1</sup>
 - Red Hat Enterprise Linux 9<sup>1</sup>
+- Red Hat Enterprise Linux 10<sup>1</sup>
 - RockyLinux 8
 - RockyLinux 9
+- RockyLinux 10
 - OracleLinux 8
 - OracleLinux 9
+- OracleLinux 10
 - AlmaLinux 8
 - AlmaLinux 9
+- AlmaLinux 10
 - Debian 11 (Bullseye)
 - Debian 12 (Bookworm)
+- Debian 13 (Trixie)
 - Ubuntu 22.04 LTS
 - Ubuntu 24.04 LTS
+- Ubuntu 26.04 LTS
 
 Note:
 <sup>1</sup> : no automated testing is performed on these platforms
@@ -48,6 +54,9 @@ mariadb_pre_packages: []
 mariadb_packages: []
 mariadb_additional_packages: []
 
+# Install from distro (vendor) or external provider (oss)
+mariadb_type: oss
+
 # Shoud socket authentication be used
 mariadb_socket_authentication: true
 
@@ -60,6 +69,8 @@ mariadb_innodb:
   innodb_buffer_pool_size: 1G
   innodb_log_file_size: 64M
   innodb_lock_wait_timeout: 900
+
+mariadb_column_case_sensitive: false
 </pre></code>
 
 ### defaults/Debian-11.yml
@@ -67,11 +78,21 @@ mariadb_innodb:
 
 </pre></code>
 
+### defaults/family-Debian-13.yml
+<pre><code>
+# List of MariaDB package it depends on
+mariadb_pre_packages:
+  - apt-transport-https
+  # - software-properties-common
+  - python3-pymysql
+  - rsync
+</pre></code>
+
 ### defaults/family-Debian.yml
 <pre><code>
 # Package repository to use
 mariadb_repo: >-
-  https://deb.mariadb.org/{{ mariadb_release }}/ubuntu
+  https://deb.mariadb.org/{{ mariadb_release }}/{{ ansible_distribution | lower }}
 
 # GPG key
 mariabdb_gpg_key: >-
@@ -162,11 +183,11 @@ mariadb_packages:
 <pre><code>
 # Package repository to use
 mariadb_repo: >-
-  https://downloads.mariadb.com/MariaDB/mariadb-{{ mariadb_release }}/yum/opensuse/$releasever_major/$basearch
+  https://rpm.mariadb.org/{{ mariadb_release }}/sles/$releasever/$basearch
 
 # GPG key
 mariabdb_gpg_key: >-
-  https://downloads.mariadb.com/MariaDB/MariaDB-Server-GPG-KEY
+  https://rpm.mariadb.org/RPM-GPG-KEY-MariaDB
 
 # List of MariaDB package it depends on
 mariadb_pre_packages: []
@@ -181,6 +202,12 @@ mariadb_socket: /var/lib/mysql/mysql.sock
 ### defaults/Ubuntu-22.yml
 <pre><code>
 
+</pre></code>
+
+### defaults/Ubuntu-26.yml
+<pre><code>
+# Install from distro (vendor) or external provider (oss)
+mariadb_type: vendor
 </pre></code>
 
 

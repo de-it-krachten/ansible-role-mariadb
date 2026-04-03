@@ -6,21 +6,6 @@ generic:
 
 # Supported platforms
 platforms:
-  rhel10:
-    supported: false
-    ci: false
-  rockylinux10:
-    supported: false
-    ci: false
-  oraclelinux10:
-    supported: false
-    ci: false
-  almalinux10:
-    supported: false
-    ci: false
-  debian13:
-    supported: false
-    ci: false
   fedora42:
     supported: false
     ci: false
@@ -39,6 +24,6 @@ molecule:
   group_vars:
     all:
       mariadb_release: '10.11'
-#  host_vars:
-#    mariadb-debian13-node1:
-#      mariadb_release: '12.0'
+  host_vars:
+    mariadb-debian13-node1:
+      mariadb_type: vendor

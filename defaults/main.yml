@@ -8,6 +8,9 @@ mariadb_pre_packages: []
 mariadb_packages: []
 mariadb_additional_packages: []
 
+# Install from distro (vendor) or external provider (oss)
+mariadb_type: oss
+
 # Shoud socket authentication be used
 mariadb_socket_authentication: true
 
@@ -20,3 +23,5 @@ mariadb_innodb:
   innodb_buffer_pool_size: 1G
   innodb_log_file_size: 64M
   innodb_lock_wait_timeout: 900
+
+mariadb_column_case_sensitive: false
