@@ -13,6 +13,7 @@ Installs & configures MariaDB 10.x using packages from mariadb.com
 None
 
 #### Collections
+- ansible.mysql
 - community.general
 - community.mysql
 
