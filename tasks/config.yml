@@ -13,7 +13,7 @@
     state: started
 
 - name: Try connecting using socket
-  community.mysql.mysql_info:
+  ansible.mysql.mysql_info:
     login_user: root
     login_unix_socket: "{{ mariadb_socket }}"
   failed_when: false
@@ -26,7 +26,7 @@
   block:
 
     - name: Set root password
-      community.mysql.mysql_user:
+      ansible.mysql.mysql_user:
         name: root
         password: "{{ mariadb_pwd }}"
         state: present
@@ -34,7 +34,7 @@
         column_case_sensitive: "{{ mariadb_column_case_sensitive | bool }}"
 
 - name: Set a priv for user root on localhost
-  community.mysql.mysql_user:
+  ansible.mysql.mysql_user:
     name: root
     state: present
     login_unix_socket: "{{ mariadb_socket if mariadb_socket_authentication | bool else omit }}"
@@ -47,7 +47,7 @@
     - Restart MariaDB
 
 - name: Remove remote root
-  community.mysql.mysql_user:
+  ansible.mysql.mysql_user:
     name: root
     state: absent
     check_implicit_admin: true
@@ -61,7 +61,7 @@
     - "{{ inventory_hostname }}"
 
 - name: Ensure anonymous users are not in the database
-  community.mysql.mysql_user:
+  ansible.mysql.mysql_user:
     name: ''
     host_all: yes
     state: absent
@@ -71,7 +71,7 @@
     column_case_sensitive: "{{ mariadb_column_case_sensitive | bool }}"
 
 - name: Remove the test database
-  community.mysql.mysql_db:
+  ansible.mysql.mysql_db:
     name: test
     state: absent
     login_unix_socket: "{{ mariadb_socket if mariadb_socket_authentication | bool else omit }}"
