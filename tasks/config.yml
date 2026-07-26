@@ -3,8 +3,8 @@
 - name: Show CPU/memory
   ansible.builtin.debug:
     msg:
-      - "ansible_processor_vcpus: {{ ansible_processor_vcpus }}"
-      - "ansible_memtotal_mb: {{ ansible_memtotal_mb }}"
+      - "ansible_facts.processor_vcpus: {{ ansible_facts.processor_vcpus }}"
+      - "ansible_facts.memtotal_mb: {{ ansible_facts.memtotal_mb }}"
 
 - name: Start service mariadb
   ansible.builtin.service:
@@ -57,7 +57,7 @@
     host: "{{ item }}"
     column_case_sensitive: "{{ mariadb_column_case_sensitive | bool }}"
   loop:
-    - "{{ ansible_fqdn }}"
+    - "{{ ansible_facts.fqdn }}"
     - "{{ inventory_hostname }}"
 
 - name: Ensure anonymous users are not in the database

@@ -31,6 +31,6 @@
   loop:
     - localhost
 #    - "{{ inventory_hostname }}"
-#    - "{{ ansible_hostname }}"
+#    - "{{ ansible_facts.hostname }}"
 #    - 127.0.0.1
 #    - ::1
