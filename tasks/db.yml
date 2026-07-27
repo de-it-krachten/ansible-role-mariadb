@@ -1,7 +1,7 @@
 ---
 
 - name: Delete DB
-  community.mysql.mysql_db:
+  ansible.mysql.mysql_db:
     name: "{{ mariadb_db_name }}"
     state: absent
     login_unix_socket: "{{ mariadb_socket if mariadb_socket_authentication | bool else omit }}"
@@ -10,7 +10,7 @@
   when: mariadb_db_delete | bool
 
 - name: Create database
-  community.mysql.mysql_db:
+  ansible.mysql.mysql_db:
     name: "{{ mariadb_db_name }}"
     state: present
     login_unix_socket: "{{ mariadb_socket if mariadb_socket_authentication | bool else omit }}"
@@ -18,7 +18,7 @@
     login_password: "{{ mariadb_pwd if not mariadb_socket_authentication | bool else omit }}"
 
 - name: Create db user
-  community.mysql.mysql_user:
+  ansible.mysql.mysql_user:
     name: "{{ mariadb_db_user }}"
     password: "{{ mariadb_db_pwd | default(omit) }}"
     host: "{{ item }}"
@@ -31,6 +31,6 @@
   loop:
     - localhost
 #    - "{{ inventory_hostname }}"
-#    - "{{ ansible_hostname }}"
+#    - "{{ ansible_facts.hostname }}"
 #    - 127.0.0.1
 #    - ::1

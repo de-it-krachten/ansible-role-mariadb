@@ -1,7 +1,7 @@
 ---
 
 - name: Setup-repository RedHat
-  when: ansible_os_family == 'Suse'
+  when: ansible_facts.os_family == 'Suse'
   block:
 
     - name: Import RPM signing key
@@ -21,7 +21,7 @@
         update_cache: true
 
 - name: Setup-repository RedHat
-  when: ansible_os_family == 'RedHat'
+  when: ansible_facts.os_family == 'RedHat'
   block:
 
     - name: Use external repository from mariadb.com
@@ -38,7 +38,7 @@
       when: _yum_repo.changed
 
 - name: Setup-repository Debian
-  when: ansible_os_family == 'Debian'
+  when: ansible_facts.os_family == 'Debian'
   block:
 
     - name: Install GPG
@@ -64,7 +64,7 @@
         file: /tmp/mariadb.gpg
         keyring: /etc/apt/trusted.gpg.d/mariadb.gpg
       become: yes
-      when: ansible_distribution_major_version | int < 12
+      when: ansible_facts.distribution_major_version | int < 12
 
     - name: Copy APT signing key into the proper drop-in directory
       ansible.builtin.copy:
@@ -72,20 +72,20 @@
         dest: /etc/apt/trusted.gpg.d/mariadb.gpg
         remote_src: yes
         mode: "0644"
-      when: ansible_distribution_major_version | int >= 12
+      when: ansible_facts.distribution_major_version | int >= 12
 
     - name: Setup mariadb.org APT repository  # noqa jinja[spacing]
       ansible.builtin.apt_repository:
         repo: >-
-          {%- if ansible_distribution_major_version | int < 12 -%}
+          {%- if ansible_facts.distribution_major_version | int < 12 -%}
           deb [arch=amd64,arm64]
           {{  mariadb_repo }}
-          {{ ansible_distribution_release }}
+          {{ ansible_facts.distribution_release }}
           main
           {%- else -%}
           deb [arch=amd64,arm64 signed-by=/etc/apt/trusted.gpg.d/mariadb.gpg]
           {{  mariadb_repo }}
-          {{ ansible_distribution_release }}
+          {{ ansible_facts.distribution_release }}
           main
           {%- endif -%}
         filename: "mariadb-{{ mariadb_release }}"

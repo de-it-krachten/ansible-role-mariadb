@@ -13,6 +13,7 @@ Installs & configures MariaDB 10.x using packages from mariadb.com
 None
 
 #### Collections
+- ansible.mysql
 - community.general
 - community.mysql
 
@@ -92,7 +93,7 @@ mariadb_pre_packages:
 <pre><code>
 # Package repository to use
 mariadb_repo: >-
-  https://deb.mariadb.org/{{ mariadb_release }}/{{ ansible_distribution | lower }}
+  https://deb.mariadb.org/{{ mariadb_release }}/{{ ansible_facts.distribution | lower }}
 
 # GPG key
 mariabdb_gpg_key: >-
