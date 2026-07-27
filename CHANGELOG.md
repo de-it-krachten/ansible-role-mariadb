@@ -1,3 +1,17 @@
+# [1.11.0](https://github.com/de-it-krachten/ansible-role-mariadb/compare/v1.10.0...v1.11.0) (2026-07-27)
+
+
+### Bug Fixes
+
+* Change 'community.mysql' => 'ansible.mysql' ([b8de4d7](https://github.com/de-it-krachten/ansible-role-mariadb/commit/b8de4d718306d4edb07f96546f0cb1724c29b44d))
+* Refactor due to fact renaming ([b52f6b4](https://github.com/de-it-krachten/ansible-role-mariadb/commit/b52f6b4ec600204a77e363f8264806b3088dfe34))
+* Standarize vars.yml ([a582360](https://github.com/de-it-krachten/ansible-role-mariadb/commit/a5823603a64702c242df1ec4b2da3a7bc81388ab))
+
+
+### Features
+
+* Add support for ansible-core 2.20+ ([144e18c](https://github.com/de-it-krachten/ansible-role-mariadb/commit/144e18cf0a81a05c6c7a1ca9e0f439308259223c))
+
 # [1.10.0](https://github.com/de-it-krachten/ansible-role-mariadb/compare/v1.9.0...v1.10.0) (2026-04-03)
 
 
