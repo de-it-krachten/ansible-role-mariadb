@@ -1,3 +1,10 @@
+# [1.12.0](https://github.com/de-it-krachten/ansible-role-mariadb/compare/v1.11.0...v1.12.0) (2026-10-30)
+
+
+### Features
+
+* Drop support for Debian 11 (Bullseye) ([72e8d1b](https://github.com/de-it-krachten/ansible-role-mariadb/commit/72e8d1b2df4d82d9b459c88e0476bd3f4268fdb9))
+
 # [1.11.0](https://github.com/de-it-krachten/ansible-role-mariadb/compare/v1.10.0...v1.11.0) (2026-07-27)
 
 
